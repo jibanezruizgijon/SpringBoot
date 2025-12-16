@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Trabajadores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div class="container">
+        
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center border border-2 border-primary-subtle rounded-3 mt-5 p-3">
+                <h1 class="text-center">Registro de Trabajadores</h1>
+                <div class="card-body">
+                    <form th:action="@{/trabajadores}" th:object="${trabajador}" method="post">
+                        <div class="form-group">
+                            <label for="">Nombre:</label>
+                            <input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder="Introduzca el nombre" required>
+                            <br>
+                            <label for="">Apellidos:</label>
+                            <input type="text" name="apellidos" th:field="*{apellidos}" class="form-control" placeholder="Introduzca los apellidos" required>
+                            <br>
+                            <label for="">Telefono:</label>
+                            <input type="text" name="telefono" th:field="*{telefono}" class="form-control"  pattern="^[0-9]{9}$"  title="introduce un número de teléfono de 9 dígitos." placeholder="Introduzca el telefono" required>
+                            <br>
+							<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red;"></p>
+                            <label for="">Email:</label>
+                            <input type="email" name="email" th:field="*{email}" class="form-control" placeholder="Introduzca el email" required>
+                        </div>
+                        <br>
+                        <div class="box-footer text-center">
+                            <button class="btn btn-primary"> Registrar trabajador</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

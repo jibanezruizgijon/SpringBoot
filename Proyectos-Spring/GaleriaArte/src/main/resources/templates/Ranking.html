@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Ranking de cuadros</title>
+	<link rel="stylesheet" th:href="@{/css/ranking.css}" />
+</head>
+
+<body>
+	<header>
+		<h1>Obras Más Votadas</h1>
+	</header>
+<!--Una tabla donde se muestran todos los cuadros con los datos -->
+
+<!--Cada cuadro se ordena por la puntuación de los votos de mayor a menor-->
+	<table>
+		<tr>
+			<th>OBRA</th>
+			<th>AUTOR</th>
+			<th>ÉPOCA</th>
+			<th>PUNTUACIÓN PROMEDIO</th>
+			<th>IMAGEN</th>
+		</tr>
+		<tr th:each="cuadro : ${galeria}" >
+			<td th:text="${cuadro.nombre}"></td>
+			<td th:text="${cuadro.autor}"></td>
+			<td th:text="${cuadro.EpocaPintura}"></td>
+			<td th:text="${cuadro.media}"> </td>
+			<td><img th:src="@{${cuadro.urlImg}}" alt="Cuadro" /></td>
+		</tr>
+	</table>
+
+	<!-- Enlace para volver a a la galeria -->
+	<div class="volver">
+		<a th:href="@{/galeria}">Volver a la galería de arte</a>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Noticias</title>
+</head>
+
+<body>
+	<h1>Tablón de anuncios</h1>
+
+	<!--Si mensajeBienvenida es true se muestra el tecto de mensajeBienvenida-->
+	<p th:if="${mensajeBienvenida}" th:text="${mensajeBienvenida}"></p>
+
+	<ul>
+	    <li th:each="anuncio, stat : ${anuncios}">
+			<a th:href="@{/verAnuncio/{id}(id=${anuncio.id})}"
+			           th:text="${anuncio.nombre} + '-' + ${anuncio.asunto} + '#' + ${anuncio.fechaCreacion} + '#'"></a>
+	    </li>
+	</ul>
+	<a href="/añadirAnuncio">Nuevo anuncio</a>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Anuncio</title>
+	<link rel="stylesheet" th:href="@{/css/nuevo.css}" />
+</head>
+
+<body>
+	<h1>Añadir nuevo libro</h1>
+	<form action="/registrarLibro" method="post" class="formulario">
+		<label>Título:*</label>
+		<input type="text" name="titulo" required>
+		<br><br>
+		<label>Autor</label>
+		<input type="text" name="autor" placeholder="Si no se escribe nada, se usa el autor de la ssesión">
+		<br><br>
+		<label>Precio (4-20):*</label>
+		<input type="number" name="precio" min="4" max="20" step="2" required>
+		<br><br>
+		<label>ISBN (4 dígitos):*</label>
+		<input type="number" name="isbn" step="2" required  min="0001" max="9999">
+		<br><br>
+		<input type="submit" value="Añadir libro">
+	</form>
+	
+	<a href="libros">Volver al índice</a>
+
+</body>
+
+</html>

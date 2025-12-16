@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Regístrate</title>
+	<link rel="stylesheet" th:href="@{/css/login.css}" />
+	
+</head>
+
+<body>
+	
+	<h1 class="titulo">Bienvenido a la gestión de Libros (Aplicación reservada a autores)</h1>
+
+
+	<!-- Formulario para introducir el autor-->
+		<form action="/registro" method="post" class="formulario">
+			<label>Nombre de Autor:*</label>
+			<input type="text" name="autor"  placeholder="Cervantes/Lorca/Zafón" required>
+			<input type="submit" value="Login">
+		</form>
+		
+	<p>* Campos Obligatorios</p>
+	<p class="italica">Tambien puede ser uno de los que se guarden al añadir libros</p>
+	
+	<!--En caso de que se introduzca un autor no válido-->
+	<p th:if="${mensajeError}" th:text="${mensajeError}" style="color:red"></p>
+
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Anuncio</title>
+	<link rel="stylesheet" th:href="@{/css/acceso.css}" />
+</head>
+
+<body>
+	<span th:text="'Nombre:' + ${nombre}"></span> 
+	<br>
+	Asunto:<span th:text="${asunto}"> </span> 
+	<br>
+	Comentario:<span th:text="${comentario}"> </span> 
+	
+</body>
+
+</html>

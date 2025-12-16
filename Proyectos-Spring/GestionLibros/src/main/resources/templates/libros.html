@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Regístrate</title>
+	<link rel="stylesheet" th:href="@{/css/libros.css}" />
+</head>
+
+<body>
+
+	<h1 class="titulo">Bienvenido a la gestión de Libros (Aplicación reservada a autores)</h1>
+
+	<p th:text="'Total de libros añadidos: ' + ${nLibros}"></p>
+
+	<a href="/nuevo">Añadir nuevo libro</a>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Título</th>
+				<th>Autor</th>
+				<th>Precio</th>
+				<th>ISBN</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="libros : ${libros}">
+				<td th:text="${libros.titulo}"></td>
+				<td th:text="${libros.autor}"></td>
+				<td th:text="${libros.precio}"></td>
+				<td th:text="${libros.isbn}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<p>Contraseñas de autores registrados:</p>
+	<table>
+		<thead>
+			<tr>
+				<th>Autor</th>
+				<th>Contraseña</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+	<br>
+	<p th:if="${condiciones}" th:text></p>
+	<br>
+	<a href="/logout">Cerrar Sesión</a>
+</body>
+
+</html>

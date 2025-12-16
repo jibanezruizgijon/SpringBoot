@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Noticias</title>
+</head>
+
+<body>
+	<h1>Nuevo anuncio</h1>
+
+	<form action="/anuncioGuardado" th:object="${anuncio}"  method="post">
+		<label>Nombre:</label>
+		<input type="text" th:field="*{nombre}" required>
+		<br><br>
+		<label>Asunto:</label>
+		<input type="text" th:field="*{asunto}" required>
+		<br><br>
+		<label>Descripción:</label>
+		<textarea th:field="*{descripcion}" required></textarea>
+		 <br><br>
+		<input type="submit" value="Enviar">
+	</form>
+</body>
+
+</html>

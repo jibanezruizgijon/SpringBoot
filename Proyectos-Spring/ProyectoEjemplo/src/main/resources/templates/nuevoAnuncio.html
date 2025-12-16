@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Nuevo A</title>
+</head>
+
+<body>
+
+	<form action="/anuncio" method="get">
+		<label>Nombre:</label>
+		<input type="text" name="nombre" required>
+		<br><br>
+		<label>Asunto:</label>
+		<input type="text" name="asunto">
+		<br><br>
+		<label>Comentario:</label>
+		<textarea name="comentario"></textarea>
+		 <br><br>
+		<input type="submit" value="enviar">
+	</form>
+</body>
+
+</html>

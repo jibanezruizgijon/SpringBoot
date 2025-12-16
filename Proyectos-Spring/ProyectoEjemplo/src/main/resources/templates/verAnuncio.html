@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Noticias</title>
+</head>
+
+<body>
+	<h1>Anuncio</h1>
+
+	<p>Nombre: <span th:text="${anuncio.nombre}"></span></p>
+	
+	<p>Asunto: <span th:text="${anuncio.asunto}"></span></p>
+	
+	<p>Descripción: <span th:text="${anuncio.descripcion}"></span></p>
+
+	<a href="paginaPrincipal">Volver al tablón</a>
+</body>
+
+</html>

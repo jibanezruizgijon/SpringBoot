@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Anuncio guardado</title>
+	<style>
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+			text-decoration: none;
+		}
+
+		body {
+			height: 100vh;
+		}
+
+		.container {
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			background-image: linear-gradient(to top, #fbeeb9, #f0de96);
+		}
+
+		.marco{
+			background-color: white;
+			padding: 50px 100px;
+			border: 1px solid black;
+			border-radius: 10px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="marco">
+			<h2>Anuncio guardado correctamente</h2>
+			<br>
+			<a th:href="@{/}">Volver al tablón de anuncios</a>
+		</div>
+	</div>
+</body>
+
+</html>

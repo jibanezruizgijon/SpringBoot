@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<title>Cuadro Aleatorio</title>
+	<link rel="stylesheet" th:href="@{/css/cuadroAleatorio.css}" />
+</head>
+
+<body>
+	<header>
+		<h1>Cuadro Aleatorio</h1>
+	</header>
+
+	<!--Muestra el cuadro elegido de forma aleatoria -->
+	<div th:if="${cuadro}" class="cuadro">
+		<h2 th:text="${cuadro.nombre}">Título del cuadro</h2>
+		<p><strong class="indice">Artista:</strong> <span th:text="${cuadro.autor}"></span></p>
+		<p><strong class="indice">Época:</strong> <span th:text="${cuadro.EpocaPintura}"></span></p>
+		<img th:src="@{${cuadro.urlImg}}" alt="Cuadro">
+	</div>
+
+	<!--Enlace para volver a la Galeria-->
+	<div class="enlaces">
+			<a th:href="@{/CuadroAleatorio}" class="enlace">Ver otro cuadro aleatorio</a>
+			<a th:href="@{/galeria}" class="enlace">Volver a galería de arte</a>
+		</div>
+
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Tablón</title>
+	<style>
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+			text-decoration: none;
+		}
+
+		th,
+		td {
+			text-align: center;
+			height: 35px;
+		}
+
+		table {
+			border-collapse: collapse;
+			width: 20vw;
+		}
+
+		.container {
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			background-image: linear-gradient(to top, #fbeeb9, #f0de96);
+		}
+
+		.marco{
+			background-color: white;
+			padding: 50px 100px;
+			border: 1px solid black;
+			border-radius: 10px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.377);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="marco">
+			<h1 th:text="${mensajeBienvenida}"></h1>
+			<br>
+			<table border="1">
+				<tr>
+					<th colspan="2">Tablón de anuncios</th>
+				</tr>
+				<tr>
+					<th>Nombre</th>
+					<th>Asunto</th>
+				</tr>
+				<tr th:each="anuncio : ${anuncios}">
+					<td><a th:href="@{/anuncio(nombre=${anuncio.nombre})}" th:text="${anuncio.nombre}"></a></td>
+					<td th:text="${anuncio.asunto}"></td>
+				</tr>
+			</table>
+			<br>
+			<a th:href="@{/nuevo}">Insertar nuevo anuncio</a>
+		</div>
+	</div>
+</body>
+
+</html>
