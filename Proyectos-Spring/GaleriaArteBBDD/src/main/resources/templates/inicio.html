@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Regístrate</title>
+	<link rel="stylesheet" th:href="@{/css/inicio.css}" />
+</head>
+
+<body>
+
+	<h1>Inicia sesión o Regístrate para poder accceder a nuestra galería de arte</h1>
+	<!--Muestra el mensaje en caso de acceder a la galería sin haberse registrado antes-->
+	<p th:if="${mensajeError}" th:text="${mensajeError}" style="color:red"></p>
+
+	<!-- Formulario para iniciar sesión con nombre y email-->
+	<form action="/acceso" method="post" class="formulario">
+		<label for="username">Nombre</label>
+		<br>
+		<input type="text" name="nombre" class="datos" autofocus required>
+		<br><br>
+		<label for="email">email</label>
+		<br>
+		<input type="email" name="email" class="datos" required>
+		<br><br>
+		<input type="checkbox" name="recuerda" />
+		<label>Recordar nombre y email</label>
+		<br><br>
+		<input type="submit" value="Enviar" class="boton">
+	</form>
+
+	<!-- Formulario para moverte a la página de registro-->
+	<form action="/registro" method="get" class="formulario">
+		<input type="submit" value="Registrarse" class="boton">
+	</form>
+
+</body>
+
+</html>
