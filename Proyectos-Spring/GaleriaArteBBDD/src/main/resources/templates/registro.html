@@ -15,20 +15,17 @@
 
 	<!-- Formulario para registrar nombre y email-->
 	<form action="/registro" method="post" class="formulario">
-		<label for="username">Nombre</label>
+		<label for="username">Nombre*</label>
 		<br>
 		<input type="text" name="nombre" class="datos" autofocus required>
 		<br><br>
-		<label for="email">email</label>
+		<label for="email">email*</label>
 		<br>
 		<input type="email" name="email" class="datos" pattern="^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
 		<br><br>
-		<input type="checkbox" name="recuerda" />
-		<label>Recordar nombre y email</label>
-		<br><br>
 		<input type="submit" value="Enviar" class="boton">
 	</form>
-
+	<hr>
 	<form th:action="@{/inicio}" method="get" class="formulario">
 		<input type="submit" value="Volver" class="boton">
 	</form>
