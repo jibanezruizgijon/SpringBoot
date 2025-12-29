@@ -16,7 +16,7 @@
 	<div th:if="${cuadro}" class="cuadro">
 		<h2 th:text="${cuadro.nombre}">Título del cuadro</h2>
 		<p><strong class="indice">Artista:</strong> <span th:text="${cuadro.autor}"></span></p>
-		<p><strong class="indice">Época:</strong> <span th:text="${cuadro.EpocaPintura}"></span></p>
+		<p><strong class="indice">Época:</strong> <span th:text="${cuadro.epocaPintura}"></span></p>
 		<img th:src="@{${cuadro.urlImg}}" alt="Cuadro">
 	</div>
 

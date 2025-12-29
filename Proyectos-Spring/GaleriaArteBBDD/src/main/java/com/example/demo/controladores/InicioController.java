@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.clases.Cuadro;
 import com.example.demo.clases.EpocaPintura;
-import com.example.demo.repository.CuadroRepository;
-import com.example.demo.repository.UsuarioRepository;
-
+import com.example.demo.clases.Usuario;
+import com.example.demo.repository.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -23,11 +22,13 @@ public class InicioController {
 
 	@Autowired
 	CuadroRepository cuadroRepository;
-	
+
 	@Autowired
 	UsuarioRepository usuarioRepository;
 
-	
+	@Autowired
+	VotoRepository votoRepository;
+
 	// Comprueba si están las sesiones o cookies creadas para no volver a
 	// registrarse
 	// Redirige a la página acceso si ya estaba registrado
@@ -36,15 +37,15 @@ public class InicioController {
 			@CookieValue(value = "nombre", defaultValue = "") String nombreCookie,
 			@CookieValue(value = "email", defaultValue = "") String emailCookie, Model model) {
 
+		// En caso de que la galeria no esté creada se inicializa
+		inicializarGaleria();
+
 		// Si ya hay sesión, redirigir a la página acceso
 		if (session.getAttribute("nombre") != null && session.getAttribute("email") != null) {
 			model.addAttribute("mensajeBienvenida",
 					"Bienvenido a la galería de arte, " + session.getAttribute("nombre"));
- 
-			
-			// Recoge los datos de los cuadros
-			List<Cuadro> listaCuadros = cuadroRepository.findAll();
-			model.addAttribute("galeria", listaCuadros);
+			// En caso de que la galeria no esté creada se inicializa
+			inicializarGaleria();
 			return "acceso";
 		}
 
@@ -52,17 +53,12 @@ public class InicioController {
 		if (!nombreCookie.isEmpty() && !emailCookie.isEmpty()) {
 			session.setAttribute("nombre", nombreCookie);
 			session.setAttribute("email", emailCookie);
-
 			// En caso de que la galeria no esté creada se inicializa
-			List<Cuadro> listaCuadros = cuadroRepository.findAll();
-
-			model.addAttribute("galeria", listaCuadros);
+			inicializarGaleria();
 			model.addAttribute("mensajeBienvenida", "Bienvenido a la galería de arte, " + nombreCookie);
 			return "acceso";
 		}
 
-		inicializarGaleria();
-		
 		return "inicio";
 	}
 
@@ -71,6 +67,11 @@ public class InicioController {
 	public String guardarRegistro(@RequestParam("nombre") String nombre, @RequestParam("email") String email,
 			@RequestParam(value = "recuerda", required = false) String recuerda, HttpSession session,
 			HttpServletResponse response, Model model) {
+
+		if (!usuarioRepository.existsByEmail(email)) {
+			model.addAttribute("mensajeError", "El Correo introducido no existe");
+			return "inicio";
+		}
 
 		session.setAttribute("nombre", nombre);
 		session.setAttribute("email", email);
@@ -99,29 +100,47 @@ public class InicioController {
 	public String mostrarAcceso(HttpSession session, Model model) {
 		// En caso de no estar registrado te devuelve a inicio con un mensaje de alerta
 		if (session.getAttribute("nombre") == null || session.getAttribute("email") == null) {
-			model.addAttribute("mensajeError", "Debes registrarte antes de acceder.");
+			model.addAttribute("mensajeError", "Debes Iniciar Sesión antes de acceder.");
 			return "inicio";
 		}
-
-
-		model.addAttribute("galeria", session.getAttribute("galeria"));
 		model.addAttribute("mensajeBienvenida", "Bienvenido a la galería de arte, " + session.getAttribute("nombre"));
 		return "acceso";
 	}
-	
+
 	@GetMapping("/registro")
 	public String mostrarRegistro() {
 		return "registro";
 	}
-	
+
 	@PostMapping("/registro")
-	public String RegistrarUsuario(@RequestParam("nombre") String nombre, @RequestParam("email") String email) {
-		
-		
+	public String registrarUsuario(@RequestParam("nombre") String nombre, @RequestParam("email") String email,
+			Model model) {
+
+		if (usuarioRepository.existsByEmail(email)) {
+			model.addAttribute("mensajeError", "El Correo introducido ya existe");
+			return "registro";
+		} else {
+			Usuario usuarionuevo = new Usuario(nombre, email);
+			usuarioRepository.save(usuarionuevo);
+		}
+		return "redirect:/inicio";
+	}
+
+	@GetMapping("/cierre")
+	public String cierreSesion(HttpSession session, HttpServletResponse response) {
+		session.removeAttribute("nombre");
+		session.removeAttribute("email");
+
+		Cookie cookieNombre = new Cookie("nombre", null);
+		cookieNombre.setMaxAge(0);
+		response.addCookie(cookieNombre);
+
+		Cookie cookieEmail = new Cookie("email", null);
+		cookieEmail.setMaxAge(0);
+		response.addCookie(cookieEmail);
+
 		return "inicio";
 	}
-	
-	
 
 	// Método para crear la galería en sesión
 	private void inicializarGaleria() {

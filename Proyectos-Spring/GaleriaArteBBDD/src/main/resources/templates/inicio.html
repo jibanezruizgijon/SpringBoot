@@ -9,17 +9,16 @@
 
 <body>
 
-	<h1>Inicia sesión o Regístrate para poder accceder a nuestra galería de arte</h1>
+	<h1>Inicia sesión para poder accceder a nuestra galería de arte</h1>
 	<!--Muestra el mensaje en caso de acceder a la galería sin haberse registrado antes-->
 	<p th:if="${mensajeError}" th:text="${mensajeError}" style="color:red"></p>
-
 	<!-- Formulario para iniciar sesión con nombre y email-->
 	<form action="/acceso" method="post" class="formulario">
-		<label for="username">Nombre</label>
+		<label for="username">Nombre*</label>
 		<br>
 		<input type="text" name="nombre" class="datos" autofocus required>
 		<br><br>
-		<label for="email">email</label>
+		<label for="email">email*</label>
 		<br>
 		<input type="email" name="email" class="datos" required>
 		<br><br>
@@ -29,6 +28,7 @@
 		<input type="submit" value="Enviar" class="boton">
 	</form>
 
+	<h1>Registrate si todavía no tienes cuenta de la galería</h1>
 	<!-- Formulario para moverte a la página de registro-->
 	<form action="/registro" method="get" class="formulario">
 		<input type="submit" value="Registrarse" class="boton">

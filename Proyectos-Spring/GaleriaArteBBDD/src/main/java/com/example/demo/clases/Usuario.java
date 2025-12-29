@@ -26,4 +26,10 @@ public class Usuario {
 	@Column(unique = true)
 	private String email;
 
+	public Usuario(String nombre, String email) {
+		super();
+		this.nombre = nombre;
+		this.email = email;
+	}
+
 }

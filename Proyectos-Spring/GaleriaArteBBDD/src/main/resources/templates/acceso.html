@@ -11,7 +11,6 @@
 
 	<!--Muestra un mensaje de bienvenida con el nombre registrado-->
 	<h1 th:if="${mensajeBienvenida}" th:text="${mensajeBienvenida}"></h1>
-
 	<!--Diferentes enlaces para acceder a las páginas de la aplicación web-->
 	<div>
 		<a th:href="@{/galeria}" class="enlace e1">Acceder a la galería de arte</a>
@@ -26,7 +25,7 @@
 		<a th:href="@{/CuadroAleatorio}" class="enlace 3">Mostrar cuadro aleatorio</a>
 	</div>
 	<div>
-			<a th:href="@{/cerrarSesion}" class="enlace 3">Cerrar Sesión</a>
+			<a th:href="@{/cierre}" class="enlace 3">Cerrar Sesión</a>
 		</div>
 </body>
 
