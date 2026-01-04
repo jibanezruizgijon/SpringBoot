@@ -43,8 +43,8 @@ public class VotoService {
 	}
 
 	public double obtenerMedia(Long cuadroId) {
-		Double media = votoRepository.obtenerMediaPorCuadro(cuadroId);
-		// Si no hay votos, la media devuelve null, así que devolvemos 0.0
+		Double media = votoRepository.obtenerMedia(cuadroId);
+		// Si no hay votos, la media devuelve null, así que se devuelve 0
 
 		if (media != null) {
 			return media;

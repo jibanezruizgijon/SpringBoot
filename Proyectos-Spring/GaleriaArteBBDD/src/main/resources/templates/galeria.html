@@ -18,12 +18,16 @@
 	</nav>
 
 	<!-- Recorre el bucle del arrayList galeria para mostrar todos los cuadros con sus datos-->
-	<div th:each="cuadro: ${galeria}"  class="obra">	
-		<img th:src="@{${cuadro.urlImg}}" alt="Cuadro"/>
+	<div th:each="cuadro: ${galeria}" class="obra">
+		<img th:src="@{${cuadro.urlImg}}" alt="Cuadro" />
 		<h3 th:text="${cuadro.nombre}"></h3>
 		<p th:text="'Autor: ' + ${cuadro.autor}"></p>
 		<p th:text="'Época: ' + ${cuadro.EpocaPintura}"></p>
-		
+		<!--En caso de hbaer votado manda muestra el mensaje de aviso-->
+		<div th:if="${mensajeError != null and idCuadroError == cuadro.id}"
+			style="background-color: #ffdddd; color: red; border: 1px solid red; padding: 5px; margin-bottom: 10px;">
+			<span th:text="${mensajeError}"></span>
+		</div>
 		<!--Formulario para votar-->
 		<form th:action="@{/votar}" method="post">
 			<input type="hidden" name="CuadroId" th:value="${cuadro.id}">

@@ -59,9 +59,8 @@ public class galeriaController {
 
 			String emailUsuario = (String) session.getAttribute("email");
 
-			// Busca al usuario en BBDD para sacar su ID 
-			Usuario usuario = usuarioRepository.findAll().stream().filter(u -> u.getEmail().equals(emailUsuario))
-					.findFirst().orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+			// Busca al usuario en BBDD para sacar su ID
+			Usuario usuario = usuarioRepository.findByEmail(emailUsuario);
 
 			Long idUsuario = usuario.getId();
 			Long idCuadro = Long.parseLong(CuadroId);
@@ -71,9 +70,11 @@ public class galeriaController {
 			votoService.registrarVoto(idUsuario, idCuadro, puntos);
 
 		} catch (Exception e) {
-			// Si el usuario ya votó o hay error, podrías mandar un mensaje de error
-			// Por ahora redirigimos para que no rompa
-			System.out.println("Error al votar: " + e.getMessage());
+			// Si el usuario ya votó , manda un mensaje de aviso
+			model.addAttribute("mensajeError", e.getMessage());
+			model.addAttribute("idCuadroError", Long.parseLong(CuadroId));
+			model.addAttribute("galeria", galeria);
+			return "galeria";
 		}
 		session.setAttribute("galeria", galeria);
 		return "redirect:/galeria";
@@ -87,37 +88,35 @@ public class galeriaController {
 			return "inicio";
 		}
 
-		List<Cuadro> galeria = cuadroRepository.findAll();
-		for (Cuadro cuadro : galeria) {
-			// Aquí se usa internamente votoRepository.obtenerMediaPorCuadro(id)
+		// Recoge la lista ordenada
+		List<Cuadro> galeriaOrdenada = cuadroRepository.obtenerRanking();
+
+		// Se rellena la variable media de cada cuadro
+		for (Cuadro cuadro : galeriaOrdenada) {
 			double mediaCalculada = votoService.obtenerMedia(cuadro.getId());
 			cuadro.setMedia(mediaCalculada);
 		}
 
-		// 3. Ordenar la lista de mayor a menor
-		galeria.sort(Comparator.comparing(Cuadro::getMedia).reversed());
-
-		model.addAttribute("galeria", galeria);
-
-		model.addAttribute("galeria", galeria);
+		model.addAttribute("galeria", galeriaOrdenada);
 		return "Ranking";
 	}
 
 	@GetMapping("/CuadroAleatorio")
-    public String cuadroAleatorio(HttpSession session, Model model) {
-    	// En caso de no estar registrado te devuelve a inicio con un mensaje de alerta
-        if (session.getAttribute("nombre") == null || session.getAttribute("email") == null) {
-        	model.addAttribute("mensajeError", "Debes registrarte antes de acceder.");
-            return "inicio";
-        }
+	public String cuadroAleatorio(HttpSession session, Model model) {
+		// En caso de no estar registrado te devuelve a inicio con un mensaje de alerta
+		if (session.getAttribute("nombre") == null || session.getAttribute("email") == null) {
+			model.addAttribute("mensajeError", "Debes registrarte antes de acceder.");
+			return "inicio";
+		}
 
-        // Guarda un número aleatorio que sea del rango de la cantidad de cuadros creados en la galeria
-        // Muestra el cuadro que esté en el array con el índice aleatorio
-        List<Cuadro> galeria = cuadroRepository.findAll();
-        int indice = (int) (Math.random() * galeria.size());
-        Cuadro cuadro = galeria.get(indice);
+		// Guarda un número aleatorio que sea del rango de la cantidad de cuadros
+		// creados en la galeria
+		// Muestra el cuadro que esté en el array con el índice aleatorio
+		List<Cuadro> galeria = cuadroRepository.findAll();
+		int indice = (int) (Math.random() * galeria.size());
+		Cuadro cuadro = galeria.get(indice);
 
-        model.addAttribute("cuadro", cuadro);
-        return "CuadroAleatorio";
-    }
+		model.addAttribute("cuadro", cuadro);
+		return "CuadroAleatorio";
+	}
 }

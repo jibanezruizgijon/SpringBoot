@@ -13,6 +13,6 @@ public interface VotoRepository extends JpaRepository<Voto, Long> {
     
     // Calcula la media con avg de las puntuaciones de un cuadro según su id
     @Query("SELECT AVG(v.puntuacion) FROM Voto v WHERE v.cuadro.id = :cuadroId")
-    Double obtenerMediaPorCuadro(@RequestParam("cuadroId") Long cuadroId);
+    Double obtenerMedia(@RequestParam("cuadroId") Long cuadroId);
     
 }
