@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Regístrate</title>
+	<link rel="stylesheet" th:href="@{/css/inicio.css}" />
+</head>
+
+<body>
+	
+	<h1>Inicia sesión</h1>
+	
+
+	<!-- Formulario para iniciar sesión nombre y contraseña-->
+		<form action="/acceso" method="post" class="formulario">
+			<label for="username">Nombre*</label>
+			<br>
+			<input type="text" name="user" class="datos" autofocus required>
+			<br><br>
+			<label for="password">contraseña*</label>
+			<br>
+			<input type="password" name="pass" class="datos" required>
+			<br><br>
+			<input type="submit" value="Entrar" class="boton">
+		</form>
+		<span>* Campo obligatorio</span>
+</body>
+
+</html>
