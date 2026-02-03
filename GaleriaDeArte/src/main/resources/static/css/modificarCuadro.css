@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: rgb(250, 247, 251);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 70px 20px 20px 20px; 
+}
+
+.formulario {
+	background-color: white;
+	padding: 60px 80px;
+	border-radius: 15px;
+	box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.2);
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 500px;
+	font-size: 1.2em;
+}
+
+.datos {
+	width: 100%;
+	height: 50px;
+	padding: 5px 10px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	margin-top: 5px;
+	color: rgb(69, 74, 75);
+	background-color: white;
+    font-size: 1em; 
+}
+
+
+.archivo {
+    width: 100%;
+    padding: 10px; 
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    color: rgb(69, 74, 75);
+    background-color: white;
+    font-size: 0.9em;
+}
+
+.archivo::file-selector-button {
+    background-color: rgb(250, 247, 251);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    color: rgb(69, 74, 75);
+    padding: 8px 12px;
+    margin-right: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.archivo::file-selector-button:hover {
+    background-color: rgb(186, 201, 216); 
+}
+
+.boton {
+	text-decoration: none;
+	color: rgb(114, 128, 129);
+	background-color: white;
+	border-radius: 10px;
+	border: 0px;
+	box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+	padding: 10px 20px;
+	text-align: center;
+	width: 120px;
+    align-self: center; 
+    cursor: pointer; 
+    font-size: 1em;
+}
+
+.boton:hover {
+	color: rgb(69, 74, 75);
+	background-color: rgb(186, 201, 216);
+	box-shadow: 2px 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.volver {
+    margin-top: 20px;
+	margin-bottom: 100px;
+	display: flex;
+	justify-content: center;
+}
+.volver a {
+    text-decoration: none;
+    color: rgb(114, 128, 129);
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 15px 25px;
+    text-align: center;
+    display: inline-block;
+}
+
+.volver a:hover {
+    color: rgb(69, 74, 75);
+    background-color: rgb(186, 201, 216);
+}
