@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{filtro.tituloPagina}">Búsqueda Avanzada</title>
+    <link rel="stylesheet" th:href="@{/css/filtraCuadros.css}">
+	<link rel="icon" type="image/png" th:href="@{https://res.cloudinary.com/dzjb4fkau/image/upload/v1770106134/logo_xjk4gb.png}">
+</head>
+<body>
+
+    <nav class="navegador">
+        <div class="enlaces">
+            <a th:href="@{/galeria}" class="navegador__enlace">
+                 <span th:text="#{filtro.volver}">Volver a la Galería</span>
+            </a>
+        </div>
+    </nav>
+
+    <section class="buscador">
+        <h1 class="buscador__titulo" th:text="#{filtro.h1}">Buscador de Arte</h1>
+
+        <div class="buscador__formulario">
+            <form th:action="@{/procesarBusqueda}" method="post">
+                
+                <h3 class="buscador__subtitulo" th:text="#{filtro.pregunta}">¿Cómo quieres filtrar?</h3>
+                
+                <div class="buscador__opciones">
+                    <div class="buscador__radio-group">
+                        <input type="radio" id="rbAutor" name="tipoBusqueda" value="autor" checked onclick="mostrarFiltro('autor')">
+                        <label for="rbAutor" class="buscador__radio-label" th:text="#{filtro.opcion.autor}">Por Autor</label>
+                    </div>
+                    <div class="buscador__radio-group">
+                        <input type="radio" id="rbEpoca" name="tipoBusqueda" value="epoca" onclick="mostrarFiltro('epoca')">
+                        <label for="rbEpoca" class="buscador__radio-label" th:text="#{filtro.opcion.epoca}">Por Época</label>
+                    </div>
+                </div>
+
+                <div id="divAutor" class="buscador__grupo">
+                    <label class="buscador__label" th:text="#{filtro.label.nombre}">Nombre del Autor:</label>
+                    <input type="text" name="autor" th:placeholder="#{filtro.placeholder.autor}" class="buscador__input">
+                </div>
+
+                <div id="divEpoca" class="buscador__grupo buscador__grupo--oculto">
+                    <label class="buscador__label" th:text="#{filtro.label.epoca}">Selecciona Época:</label>
+                    <select name="epoca" class="buscador__select">
+                        <option value="" disabled selected th:text="#{filtro.select.default}">-- Seleccionar --</option>
+                        <option th:each="epoca : ${epocas}" 
+                                th:value="${epoca}" 
+                                th:text="${epoca}"></option>
+                    </select>
+                </div>
+
+                <button type="submit" class="buscador__boton" th:text="#{filtro.btn.buscar}">BUSCAR</button>
+            </form>
+        </div>
+    </section>
+
+    <hr class="separador">
+
+    <section th:if="${resultados != null}" class="resultados">
+        <h2 class="resultados__titulo" th:text="#{filtro.resultados.titulo}">Resultados de la búsqueda:</h2>
+        
+        <p th:if="${resultados.empty}" class="resultados__mensaje" th:text="#{filtro.resultados.vacio}">No se han encontrado cuadros con ese criterio.</p>
+
+        <div class="resultados__grid" th:unless="${resultados.empty}">
+            <div th:each="cuadro : ${resultados}" class="obra">
+                <h3 th:text="${cuadro.nombre}">Título</h3>
+                <p>
+                    <span th:text="#{filtro.card.autor}">Autor:</span> 
+                    <span th:text="${cuadro.autor}">NombreAutor</span>
+                </p>
+                
+                <img th:if="${cuadro.urlImg != null}" th:src="${cuadro.urlImg}" th:alt="#{filtro.alt.imagen}">
+                <img th:if="${cuadro.urlImg == null}" th:src="@{/imagenesLogos/img1.jpg}" th:alt="#{filtro.alt.sinImagen}">
+            </div>
+        </div>
+    </section>
+
+    <script th:src="@{/js/scripts.js}"></script>
+
+</body>
+</html>

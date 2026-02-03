@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Añadir Cuadro</title>
+	<link rel="stylesheet" th:href="@{/css/nuevoCuadro.css}" />
+	<link rel="icon" type="image/png" th:href="@{https://res.cloudinary.com/dzjb4fkau/image/upload/v1770106134/logo_xjk4gb.png}">
+</head>
+
+<body>
+	<form th:action="@{/guardarCuadro}" method="POST" class="formulario" enctype="multipart/form-data">
+		<input type="text" class="datos" name="nombre" placeholder="Nombre del cuadro" required>
+		<input type="text" class="datos" name="autor" placeholder="Autor" required>
+
+		<select name="epoca" class="datos">
+			<option th:each="epoca : ${epocas}" th:value="${epoca}" th:text="${epoca}"></option>
+		</select>
+
+		<input type="file" name="imagen" accept="image/*" required class="archivo">
+
+		<button type="submit" class="boton">Guardar</button>
+		<div class="volver">
+				<a th:href="@{/galeria}">Volver a la galería de arte</a>
+			</div>
+	</form>
+	
+
+</body>
+
+</html>
