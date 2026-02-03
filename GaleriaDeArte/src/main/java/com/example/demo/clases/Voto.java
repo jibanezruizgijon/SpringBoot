@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
  * <p>
  * Esta clase mapea la tabla "votos" en la base de datos.
  * </p>
- * <p>
+ * 
  * <b>Reglas de Negocio:</b>
  * <ul>
  * <li>Un usuario solo puede votar una vez por cada cuadro (garantizado por {@code @UniqueConstraint}).</li>
  * <li>La fecha del voto se registra automáticamente al instanciar la clase.</li>
  * </ul>
- * </p>
+ * 
  * * @author Jonathan Ibáñez Piñero
  * @version 1.0
  * @see Usuario

@@ -11,7 +11,7 @@ COPY . .
 RUN chmod +x mvnw
 
 # Build the application (requires Maven or Gradle)
-RUN ./mvnw clean package -DskipTests
+RUN ./mvnw clean package -DskipTests -Dmaven.javadoc.skip=true
 
 # Stage 2: Run the application
 FROM eclipse-temurin:21-jre
