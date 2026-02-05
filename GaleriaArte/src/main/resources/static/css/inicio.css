@@ -1,0 +1,228 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: rgb(250, 247, 251);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	position: relative;
+}
+
+/* --- TARJETA CENTRAL UNIFICADA --- */
+.tarjeta-acceso {
+	background-color: white;
+	padding: 50px 60px; 
+	border-radius: 12px; 
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+	width: 100%;
+	max-width: 450px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.titulo-principal {
+	color: rgb(107, 107, 107); 
+	font-size: 1.5rem;
+	margin-bottom: 30px;
+	font-weight: 600;
+}
+
+/* --- FORMULARIO Y INPUTS --- */
+.formulario-login {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.etiqueta-input {
+	color: rgb(114, 128, 129);
+	margin-bottom: 5px;
+	font-size: 0.9rem;
+	font-weight: bold;
+	margin-left: 5px;
+}
+
+.datos {
+	width: 100%;
+	height: 45px;
+	padding: 5px 15px;
+	border-radius: 8px;
+	border: 1px solid #ccc; 
+	margin-bottom: 20px;
+	color: rgb(69, 74, 75);
+	font-size: 1rem;
+	background-color: rgb(250, 252, 253); 
+}
+
+.datos:focus {
+	outline: none;
+	border-color: rgb(154, 176, 199); 
+	box-shadow: 0 0 5px rgba(154, 176, 199, 0.3);
+}
+
+/* --- BOTÓN DE LOGIN --- */
+.boton-login {
+	width: 100%;
+	padding: 12px;
+	margin-top: 10px;
+	background-color: rgb(154, 176, 199); 
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.boton-login:hover {
+	background-color: rgb(86, 121, 156); 
+}
+
+/* --- MENSAJES DE ERROR --- */
+.mensaje-alerta {
+	color: rgb(226, 65, 65); 
+	background-color: #ffe6e6;
+	padding: 10px;
+	border-radius: 6px;
+	width: 100%;
+	margin-bottom: 20px;
+	font-size: 0.9rem;
+	border: 1px solid #ffcccc;
+}
+
+/* --- SECCIÓN REGISTRO (PARTE INFERIOR) --- */
+.separador {
+	width: 100%;
+	height: 1px;
+	background-color: #eee;
+	margin: 30px 0;
+}
+
+.seccion-registro {
+	color: rgb(114, 128, 129);
+	font-size: 1rem;
+}
+
+.enlace-registro {
+	color: rgb(86, 121, 156);
+	font-weight: bold;
+	text-decoration: none;
+	margin-left: 5px;
+}
+
+.enlace-registro:hover {
+	text-decoration: underline;
+	color: rgb(69, 74, 75);
+}
+
+
+/* --- BLOQUE DE IDIOMAS --- */
+.contenedor-idioma {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    display: inline-block;
+}
+
+.boton-idioma {
+    text-decoration: none;
+    color: rgb(114, 128, 129);
+    background-color: white;
+    border-radius: 10px;
+    border: 0px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.boton-idioma:hover {
+    color: rgb(69, 74, 75);
+    background-color: rgb(186, 201, 216);
+    box-shadow: 2px 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.menu-desplegable {
+    display: none;
+    position: absolute;
+    right: 0;
+    margin-top: 10px;
+    background-color: white;
+    min-width: 120px;
+    box-shadow: 2px 8px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    list-style: none;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.menu-desplegable a {
+    color: rgb(114, 128, 129);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.menu-desplegable a:hover {
+    background-color: rgb(240, 240, 245);
+    color: rgb(69, 74, 75);
+}
+
+.mostrar {
+    display: block;
+    animation: opciones-idioma 0.3s;
+}
+
+@keyframes opciones-idioma {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- VERSIÓN MÓVIL (Responsivo) --- */
+@media (max-width: 768px) {
+    body {
+        /* 1. Cambiamos a columna para que los elementos se apilen */
+        flex-direction: column;
+        
+        /* 2. Alineamos al inicio (arriba) en lugar del centro vertical */
+        justify-content: flex-start;
+        
+        /* 3. Añadimos padding para que no se pegue al borde superior */
+        padding-top: 20px; 
+        
+        /* 4. Quitamos la altura forzada para permitir scroll si hace falta */
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .contenedor-idioma {
+        /* 5. IMPORTANTE: Quitamos position: absolute para que entre en el flujo normal */
+        position: static;
+        
+        /* 6. Lo alineamos a la derecha (como en escritorio) pero usando Flexbox */
+        align-self: flex-end;
+        
+        /* 7. Le damos un margen pequeño respecto a la tarjeta de abajo */
+        margin-bottom: 15px;
+        margin-right: 20px; /* Un poco de margen derecho para que no toque el borde */
+    }
+
+    .tarjeta-acceso {
+        /* Ajuste para que la tarjeta no toque los bordes laterales en móviles muy estrechos */
+        width: 90%;
+        margin-bottom: 30px; /* Espacio abajo por si hay scroll */
+    }
+}
