@@ -6,23 +6,40 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Value;
 /**
- * Configuración para la API de cloudinary para que me permita subir imágenes desde mi aplicación web 
- * sin tener que entrar en la página de cloudinary
- * 
- * 
+ * Clase de configuración para la integración con el servicio Cloudinary.
+ * <p>
+ * Esta clase inicializa el cliente de Cloudinary utilizando las credenciales (API Key, Secret, Cloud Name)
+ * definidas en el archivo de propiedades {@code application.properties}.
+ * Permite que la aplicación web suba y gestione imágenes en la nube de forma transparente.
+ * </p>
+ *
+ * @author Jonathan Ibáñez Piñero
+ * @see com.example.demo.servicios.CloudinaryService
  */
 @Configuration
 public class CloudinaryConfig {
 
+    /** Nombre de la nube (Cloud Name) inyectado desde la configuración. */
     @Value("${cloudinary.cloud_name}")
     private String cloudName;
 
+    /** Clave pública de la API (API Key) inyectada desde la configuración. */
     @Value("${cloudinary.api_key}")
     private String apiKey;
 
+    /** Clave secreta de la API (API Secret) inyectada desde la configuración. */
     @Value("${cloudinary.api_secret}")
     private String apiSecret;
 
+    /**
+     * Crea y configura el bean cliente de Cloudinary.
+     * <p>
+     * Este objeto será inyectado posteriormente en los servicios (como {@code CloudinaryService})
+     * para realizar las operaciones de subida de archivos.
+     * </p>
+     *
+     * @return Una instancia de {@link Cloudinary} configurada con las credenciales de la cuenta.
+     */
     @Bean
     public Cloudinary cloudinary() {
         return new Cloudinary(ObjectUtils.asMap(

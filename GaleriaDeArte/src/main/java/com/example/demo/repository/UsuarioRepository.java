@@ -2,26 +2,21 @@ package com.example.demo.repository;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import com.example.demo.clases.Usuario;
 
 /**
  * Repositorio de acceso a datos para la entidad {@link Usuario}.
  * <p>
- * Esta interfaz extiende {@link JpaRepository}, proporcionando operaciones CRUD estándar
- * (Create, Read, Update, Delete) sin necesidad de implementación manual.
+ * Encargado de la gestión de la persistencia de los usuarios del sistema.
+ * Es fundamental para los procesos de autenticación (Login) y registro.
  * </p>
- * <p>
- * Incluye consultas personalizadas para:
- * </p>
- * <ul>
- * <li>Encontrar un usuario por su correo electrónico.</li>
- * <li>Verificar la existencia de un usuario en la base de datos.</li>
- * <li>Recuperar una lista de usuarios filtrada por su rol.</li>
- * </ul>
  *
- * @see JpaRepository
- * @see Usuario
+ * @author Jonathan Ibáñez Piñero
+ * @see com.example.demo.clases.Usuario
  */
+@Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     /**

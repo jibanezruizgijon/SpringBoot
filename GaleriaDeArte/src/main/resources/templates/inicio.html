@@ -38,6 +38,18 @@
 
             <input type="submit" class="boton-login" th:value="#{inicio.boton.enviar}" />
         </form>
+		<div class="oauth-container">
+		    <div class="separator">o</div>
+		    
+		    <a href="/oauth2/authorization/google" class="google-link-reset">
+		        <div class="google-btn">
+					<img th:src="@{/imagenesLogos/iconGoogle.svg}" 
+					     alt="Google Logo" 
+					     class="google-icon">
+		            <span class="google-text" th:text="#{login.google}">Iniciar sesión con Google</span>
+		        </div>
+		    </a>
+		</div>
 
         <div class="separador"></div>
 

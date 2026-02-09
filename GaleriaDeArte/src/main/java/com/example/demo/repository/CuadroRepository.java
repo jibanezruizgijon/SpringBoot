@@ -3,20 +3,22 @@ package com.example.demo.repository;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
 import com.example.demo.clases.Cuadro;
 import com.example.demo.clases.EpocaPintura;
-
 /**
  * Repositorio de acceso a datos para la entidad {@link Cuadro}.
  * <p>
- * Esta interfaz extiende {@link JpaRepository}, proporcionando operaciones CRUD estándar
- * (Create, Read, Update, Delete) sin necesidad de implementación manual.
- * Además, incluye consultas personalizadas para el ranking y filtrado de obras.
+ * Proporciona la funcionalidad completa de CRUD (Create, Read, Update, Delete)
+ * gracias a la herencia de {@link JpaRepository}.
+ * Incluye consultas personalizadas derivadas del nombre del método para búsquedas específicas.
  * </p>
  *
- * @see JpaRepository
- * @see Cuadro
+ * @author Jonathan Ibáñez Piñero
+ * @see org.springframework.data.jpa.repository.JpaRepository
  */
+@Repository
 public interface CuadroRepository extends JpaRepository<Cuadro, Long> {
 
     /**

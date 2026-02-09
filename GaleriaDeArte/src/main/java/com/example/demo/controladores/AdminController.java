@@ -23,104 +23,130 @@ import com.example.demo.servicios.EmailService;
 import com.example.demo.repository.UsuarioRepository; 
 
 /**
- * Controlador encargado de las funcionalidades de administración.
- * Gestiona las operaciones CRUD (Crear, Leer, Actualizar, Borrar) para la entidad {@link Cuadro}.
- * Solo los usuarios con rol de administrador deberían tener acceso a estas rutas.
+ * Controlador de Administración (Back-office).
+ * <p>
+ * Gestiona las operaciones privilegiadas que solo el rol ADMIN puede realizar:
+ * <ul>
+ * <li>Alta, Baja y Modificación de Cuadros (CRUD).</li>
+ * <li>Gestión de imágenes en la nube (Cloudinary).</li>
+ * <li>Envío de notificaciones masivas por correo electrónico (Newsletter).</li>
+ * </ul>
+ * </p>
+ *
+ * @author Jonathan Ibáñez Piñero
+ * @version 1.0
  */
 @Controller
 public class AdminController {
 
-	/**
-     * Servicio para la gestión de subida de imágenes a la nube (Cloudinary).
-     */
-	@Autowired
-	private CloudinaryService cloudinaryService;
+    /** Servicio para la gestión de almacenamiento de imágenes externas. */
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
-	/**
-     * Repositorio para realizar operaciones de base de datos sobre la entidad Cuadro.
-     */
-	@Autowired
-	private CuadroRepository cuadroRepository;
-	
-	/**
-     * Repositorio para realizar operaciones de base de datos sobre la entidad Usuario.
-     */
-	@Autowired
+    /** Acceso a datos de los cuadros. */
+    @Autowired
+    private CuadroRepository cuadroRepository;
+    
+    /** Acceso a datos de usuarios (necesario para obtener emails para el newsletter). */
+    @Autowired
     private UsuarioRepository usuarioRepository;
-	
+    
+    /** Servicio de envío de correos electrónicos. */
     @Autowired
     private EmailService emailService;
 
     /**
-     * Muestra el formulario para crear un nuevo cuadro.
-     * Carga las épocas de pintura disponibles en el modelo para mostrarlas en un desplegable.
-     * * @param model Modelo de Spring para pasar datos a la vista.
-     * @return El nombre de la vista (plantilla HTML) "nuevoCuadro".
+     * Muestra el formulario de alta de un nuevo cuadro.
+     * @param model Modelo de datos.
+     * @return La vista {@code nuevoCuadro.html}.
      */
-	@GetMapping("/nuevoCuadro")
-	public String formularioCuadro(Model model) {
-		model.addAttribute("epocas", EpocaPintura.values());
-		return "nuevoCuadro";
-	}
+    @GetMapping("/nuevoCuadro")
+    public String formularioCuadro(Model model) {
+        model.addAttribute("epocas", EpocaPintura.values());
+        return "nuevoCuadro";
+    }
 
-	/**
-     * Procesa el formulario de creación de un cuadro.
-     * Sube la imagen proporcionada a Cloudinary, crea una nueva instancia de {@link Cuadro}
-     * con los datos recibidos y la guarda en la base de datos.
-     * * @param nombre Nombre del cuadro.
-     * @param autor Autor del cuadro.
-     * @param epoca Época a la que pertenece el cuadro (enum {@link EpocaPintura}).
-     * @param imagen Archivo de imagen subido por el usuario.
-     * @return Redirección a la galería si todo sale bien, o redirección con error si falla la subida.
+    /**
+     * Procesa la creación de un nuevo cuadro y gestiona la subida de su imagen.
+     * <p>
+     * Flujo de ejecución:
+     * <ol>
+     * <li>Sube la imagen recibida a Cloudinary y obtiene su URL pública.</li>
+     * <li>Crea el objeto {@code Cuadro} con los metadatos y la URL.</li>
+     * <li>Guarda el cuadro en la base de datos.</li>
+     * <li>Redirige a la pantalla de redacción de correo para notificar la novedad.</li>
+     * </ol>
+     * </p>
+     *
+     * @param nombre        Título de la obra.
+     * @param autor         Nombre del artista.
+     * @param epoca         Categoría histórica/artística.
+     * @param imagen        Archivo binario de la imagen.
+     * @param redirectAttrs Atributos para pasar mensajes entre redirecciones.
+     * @return Redirección a {@code /prepararCorreo/{id}}.
      */
-	@PostMapping("/guardarCuadro")
-	public String guardarCuadro(@RequestParam("nombre") String nombre, @RequestParam("autor") String autor,
-			@RequestParam("epoca") EpocaPintura epoca, @RequestParam("imagen") MultipartFile imagen, RedirectAttributes redirectAttrs) {
+    @PostMapping("/guardarCuadro")
+    public String guardarCuadro(@RequestParam("nombre") String nombre, @RequestParam("autor") String autor,
+            @RequestParam("epoca") EpocaPintura epoca, @RequestParam("imagen") MultipartFile imagen, RedirectAttributes redirectAttrs) {
 
-		String urlImagen = null;
-		// Para subir la imagen a cloudinary 
-		try {
-			urlImagen = cloudinaryService.subirImagen(imagen);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "redirect:/nuevo-cuadro?error=fallo_subida";
-		}
+        String urlImagen = null;
+        
+        try {
+            // Delegamos la subida al servicio externo
+            urlImagen = cloudinaryService.subirImagen(imagen);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/nuevo-cuadro?error=fallo_subida";
+        }
 
-		Cuadro nuevoCuadro = new Cuadro(nombre, autor, epoca, urlImagen);
+        Cuadro nuevoCuadro = new Cuadro(nombre, autor, epoca, urlImagen);
+        cuadroRepository.save(nuevoCuadro);
 
-		cuadroRepository.save(nuevoCuadro);
-
-		return "redirect:/prepararCorreo/" + nuevoCuadro.getId();
-	}
-	
-	// Para redactar el correo que se enviarán a los usuarios
+        // Pasamos al siguiente paso del flujo: Notificar a los usuarios
+        return "redirect:/prepararCorreo/" + nuevoCuadro.getId();
+    }
+    
+    /**
+     * Muestra la vista de previsualización para enviar un correo masivo sobre un cuadro nuevo.
+     * @param id    Identificador del cuadro recién creado.
+     * @param model Modelo de datos.
+     * @return La vista {@code enviarCorreo.html}.
+     */
     @GetMapping("/prepararCorreo/{id}")
     public String prepararCorreo(@PathVariable Long id, Model model) {
-        // Buscamos el cuadro recién creado para mostrar sus datos
         Cuadro cuadro = cuadroRepository.findById(id).orElse(null);
         
-        
-        // Si no existe te redirige a la galería
         if (cuadro == null) {
             return "redirect:/galeria"; 
         }
         
         model.addAttribute("cuadro", cuadro);
-        return "enviarCorreo"; // Nombre de tu archivo HTML del correo
+        return "enviarCorreo"; 
     }
 
-    // Envía los correos masivos y termina el proceso
+    /**
+     * Ejecuta el envío masivo de correos electrónicos a todos los usuarios registrados.
+     * <p>
+     * Recupera todos los usuarios con rol 'ROLE_USER' e itera sobre ellos para enviar
+     * la notificación utilizando {@link EmailService}.
+     * </p>
+     *
+     * @param idCuadro ID del cuadro (referencia).
+     * @param asunto   Asunto del correo electrónico.
+     * @param cuerpo   Cuerpo del mensaje.
+     * @return Redirección final a la galería.
+     */
     @PostMapping("/enviarAviso")
     public String enviarAviso(@RequestParam Long idCuadro,
                               @RequestParam String asunto,
                               @RequestParam String cuerpo) {
         
-        // Buscamos usuarios normales (ROLE_USER)
+        // Obtenemos la lista de destinatarios (Usuarios normales)
         List<Usuario> usuarios = usuarioRepository.findByRol("ROLE_USER");
         
+        // Envío iterativo (Nota: En producción, esto debería ser asíncrono o por lotes)
         for (Usuario u : usuarios) {
             if (u.getEmail() != null && !u.getEmail().isEmpty()) {
-                // Usamos el servicio para enviar
                 emailService.enviarCorreoMasivo(u.getEmail(), asunto, cuerpo);
             }
         }
@@ -128,48 +154,51 @@ public class AdminController {
         return "redirect:/galeria";
     }
 
-	// Elimina el Cuadro -------------------------
-	@GetMapping("/eliminarCuadro/{id}")
-	public String eliminarCuadro(@PathVariable("id") Long id) {
-		cuadroRepository.deleteById(id);
-		return "redirect:/galeria";
-	}
-
-	/**
-     * Prepara y muestra el formulario para modificar un cuadro existente.
-     * Busca el cuadro por su ID y lo añade al modelo para que los campos del formulario aparezcan rellenos.
-     * * @param id Identificador del cuadro a editar.
-     * @param model Modelo de Spring para pasar el cuadro y las épocas a la vista.
-     * @return El nombre de la vista "modificarCuadro".
+    /**
+     * Elimina un cuadro del sistema por su ID.
+     * @param id Identificador del cuadro a borrar.
+     * @return Redirección a la galería actualizada.
      */
-	@GetMapping("/modificarCuadro/{id}")
-	public String modificarCuadro(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/eliminarCuadro/{id}")
+    public String eliminarCuadro(@PathVariable("id") Long id) {
+        cuadroRepository.deleteById(id);
+        return "redirect:/galeria";
+    }
 
-		Cuadro cuadroModificar = cuadroRepository.findById(id).orElse(null);
-
-		model.addAttribute("cuadro", cuadroModificar);
-		model.addAttribute("epocas", EpocaPintura.values());
-		return "modificarCuadro";
-	}
-
-	/**
-     * Procesa los cambios realizados en el formulario de modificación.
-     * Actualiza los datos del cuadro (nombre, autor, época) manteniendo la imagen y el ID originales.
-     * * @param cuadro Objeto Cuadro con los datos modificados provenientes del formulario.
-     * @param model Modelo de Spring.
-     * @return Redirección a la galería con los datos actualizados.
+    /**
+     * Carga el formulario de edición con los datos actuales de un cuadro.
+     * @param id    Identificador del cuadro.
+     * @param model Modelo de datos.
+     * @return La vista {@code modificarCuadro.html}.
      */
-	@PostMapping("/cuadroModificado")
-	public String cuadroModificado(@ModelAttribute("cuadro") Cuadro cuadro, Model model) {
+    @GetMapping("/modificarCuadro/{id}")
+    public String modificarCuadro(@PathVariable("id") Long id, Model model) {
+        Cuadro cuadroModificar = cuadroRepository.findById(id).orElse(null);
+        model.addAttribute("cuadro", cuadroModificar);
+        model.addAttribute("epocas", EpocaPintura.values());
+        return "modificarCuadro";
+    }
 
-		Cuadro cuadroModificar = cuadroRepository.findById(cuadro.getId()).orElse(null);
+    /**
+     * Aplica los cambios realizados a un cuadro existente.
+     * <p>
+     * <b>Nota:</b> Este método solo actualiza los metadatos (texto). 
+     * La imagen no se modifica en esta operación.
+     * </p>
+     * @param cuadro Objeto con los nuevos datos (binding automático del formulario).
+     * @param model  Modelo de datos.
+     * @return Redirección a la galería.
+     */
+    @PostMapping("/cuadroModificado")
+    public String cuadroModificado(@ModelAttribute("cuadro") Cuadro cuadro, Model model) {
+        Cuadro cuadroModificar = cuadroRepository.findById(cuadro.getId()).orElse(null);
 
-		if (cuadroModificar != null) {
-			cuadroModificar.setNombre(cuadro.getNombre());
-			cuadroModificar.setAutor(cuadro.getAutor());
-			cuadroModificar.setEpocaPintura(cuadro.getEpocaPintura());
-			cuadroRepository.save(cuadroModificar);
-		}
-		return "redirect:/galeria";
-	}
+        if (cuadroModificar != null) {
+            cuadroModificar.setNombre(cuadro.getNombre());
+            cuadroModificar.setAutor(cuadro.getAutor());
+            cuadroModificar.setEpocaPintura(cuadro.getEpocaPintura());
+            cuadroRepository.save(cuadroModificar);
+        }
+        return "redirect:/galeria";
+    }
 }

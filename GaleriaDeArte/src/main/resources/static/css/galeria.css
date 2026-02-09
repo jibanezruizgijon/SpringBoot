@@ -141,6 +141,52 @@ a:hover {
 	
 }
 
+.mensaje-ya-votado {
+    background-color: #e8f5e9; /* Fondo verde suave */
+    color: #2e7d32;            /* Texto verde oscuro */
+    border: 1px solid #c8e6c9;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.alerta-error {
+    background-color: #ffdddd;
+    color: #d8000c; /* Rojo más legible */
+    border: 1px solid #ffbaba;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+}
+
+.alerta-exito {
+    color: #2e7d32; /* Verde oscuro */
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #c8e6c9;
+    background-color: #e8f5e9; /* Verde suave */
+    border-radius: 5px;
+    display: flex; /* Para centrar si pones iconos */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ajuste para los datos de la obra (Autor, Epoca) */
+.dato-obra {
+    margin: 5px 0 10px;
+    color: #7f8c8d;
+    font-size: 0.95rem;
+}
+
+.dato-obra strong {
+    color: #2c3e50; /* Un poco más oscuro para el título */
+}
+
 
 /* MÓVIL */
 @media screen and (max-width: 480px) {

@@ -13,13 +13,32 @@ import com.example.demo.clases.Cuadro;
 import com.example.demo.clases.EpocaPintura;
 import com.example.demo.repository.CuadroRepository;
 
+/**
+ * Controlador encargado de gestionar las búsquedas y filtrado de cuadros.
+ * <p>
+ * Permite al usuario buscar obras de arte por diferentes criterios (Autor o Época)
+ * y muestra los resultados en una vista dedicada.
+ * </p>
+ *
+ * @author Jonathan Ibáñez Piñero
+ * @version 1.0
+ */
 @Controller
 public class filtroController {
 
     @Autowired
     private CuadroRepository cuadroRepository;
 
-    // Muestra la página vacía de cuadros con las opciones para filtrar
+    /**
+     * Muestra la página de búsqueda inicial.
+     * <p>
+     * Carga las opciones de filtrado (como las épocas disponibles) pero no muestra ningún resultado
+     * hasta que el usuario realice una acción.
+     * </p>
+     *
+     * @param model Modelo de datos para pasar la lista de épocas a la vista.
+     * @return La vista {@code filtraCuadros.html}.
+     */
     @GetMapping("/filtrar")
     public String mostrarPaginaFiltrar(Model model) {
         model.addAttribute("epocas", EpocaPintura.values());
@@ -27,7 +46,22 @@ public class filtroController {
         return "filtraCuadros"; 
     }
 
-    // Procesa la busqueda según el filtro
+    /**
+     * Procesa la solicitud de búsqueda enviada por el formulario.
+     * <p>
+     * Dependiendo del "tipoBusqueda" seleccionado, delega la consulta al repositorio:
+     * <ul>
+     * <li><b>Autor:</b> Búsqueda parcial e insensible a mayúsculas.</li>
+     * <li><b>Época:</b> Búsqueda exacta por el enum {@link EpocaPintura}.</li>
+     * </ul>
+     * </p>
+     *
+     * @param tipo  El criterio de búsqueda seleccionado ("autor" o "epoca").
+     * @param autor El texto introducido para buscar por nombre de autor (opcional).
+     * @param epoca La época seleccionada en el desplegable (opcional).
+     * @param model Modelo para devolver los resultados y recargar el formulario.
+     * @return La misma vista {@code filtraCuadros.html} pero ahora con la lista de resultados poblada.
+     */
     @PostMapping("/procesarBusqueda")
     public String procesarBusqueda(@RequestParam("tipoBusqueda") String tipo,
                                    @RequestParam(value = "autor", required = false) String autor,
@@ -36,15 +70,18 @@ public class filtroController {
         
         List<Cuadro> resultados = null;
 
+        // Lógica de selección de estrategia de búsqueda
         if ("autor".equals(tipo) && autor != null && !autor.isBlank()) {
             resultados = cuadroRepository.findByAutorContainingIgnoreCase(autor.trim());
         } else if ("epoca".equals(tipo) && epoca != null) {
             resultados = cuadroRepository.findByEpocaPintura(epoca);
         }
-        // Envia los cuadros que cumple con el filtro
+        
+        // Inyectamos los resultados en la vista
         model.addAttribute("resultados", resultados); 
-        // Vuelve a enviar las épocas para la siguiente busqueda
+        // Es necesario volver a enviar las épocas para que el desplegable no se quede vacío tras la recarga
         model.addAttribute("epocas", EpocaPintura.values()); 
+        
         return "filtraCuadros";
     }
 }

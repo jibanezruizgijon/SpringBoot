@@ -74,7 +74,7 @@ body {
 	width: 100%;
 	padding: 12px;
 	margin-top: 10px;
-	background-color: rgb(154, 176, 199); 
+	background-color: rgb(120, 163, 233); 
 	color: white;
 	border: none;
 	border-radius: 8px;
@@ -85,6 +85,81 @@ body {
 
 .boton-login:hover {
 	background-color: rgb(86, 121, 156); 
+}
+/* BOTÓN DE GOOGLE */
+/* --- Estilos para el Botón de Google --- */
+
+.oauth-container {
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Separador elegante con línea (Opcional) */
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #666;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 300px; /* Ajusta al ancho de tu formulario */
+}
+.separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+}
+.separator::before { margin-right: 10px; }
+.separator::after { margin-left: 10px; }
+
+/* Quitamos el subrayado y color azul típico de los enlaces */
+.google-link-reset {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    max-width: 300px; /* Que mida lo mismo que tus inputs */
+}
+
+/* El DIV que hace de botón */
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 1px solid #dadce0;
+    border-radius: 4px; /* Bordes redondeados sutiles */
+    padding: 10px 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif; /* Fuente limpia */
+}
+
+/* Efecto al pasar el ratón (Hover) */
+.google-btn:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    border-color: #c1c1c1;
+    transform: translateY(-1px); /* Pequeño efecto de elevación */
+}
+
+/* El logo de la G */
+.google-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+}
+
+/* El texto del botón */
+.google-text {
+    color: #3c4043;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 /* --- MENSAJES DE ERROR --- */

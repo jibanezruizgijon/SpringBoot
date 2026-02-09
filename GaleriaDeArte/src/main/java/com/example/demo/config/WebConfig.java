@@ -1,7 +1,5 @@
 package com.example.demo.config;
 
-
-
 import java.util.Locale;
 
 import org.springframework.context.annotation.Bean;
@@ -13,27 +11,65 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 /**
- * Configuración para que se pueda asignar un idioma por defecto y cambiar a los idiomas disponibles en el proyecto
+ * Configuración de la capa Web MVC para la gestión de la Internacionalización (i18n).
+ * <p>
+ * Esta clase define cómo la aplicación resuelve y mantiene el idioma seleccionado por el usuario.
+ * Utiliza un mecanismo basado en sesiones ({@link SessionLocaleResolver}), lo que permite que
+ * la preferencia de idioma persista durante toda la navegación del usuario hasta que cierre el navegador
+ * o expire su sesión.
+ * </p>
+ *
+ * @author Jonathan Ibáñez Piñero
+ * @see WebMvcConfigurer
  */
 @Configuration
-public class WebConfig implements WebMvcConfigurer{
+public class WebConfig implements WebMvcConfigurer {
 
-	@Bean
-	public LocaleResolver localeResolver() {
-		SessionLocaleResolver slr = new SessionLocaleResolver();
-		slr.setDefaultLocale(Locale.of("es"));
-		return slr;
-	}
-	
-	@Bean
-	public LocaleChangeInterceptor localeChangeInterceptor() {
-		LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
-		lci.setParamName("lang");
-		return lci;
-	}
-	
-
-	public void addInterceptors(InterceptorRegistry intercepto) {
-		intercepto.addInterceptor(localeChangeInterceptor());
-	}
+    /**
+     * Define el mecanismo de resolución de la configuración regional (Locale).
+     * <p>
+     * Se configura un {@link SessionLocaleResolver} para almacenar la elección del idioma
+     * en la sesión HTTP del usuario.
+     * </p>
+     * * @return El bean {@code LocaleResolver} configurado con el español ("es") como idioma predeterminado.
+     */
+    @Bean
+    public LocaleResolver localeResolver() {
+        SessionLocaleResolver slr = new SessionLocaleResolver();
+        // Establece el Español como idioma por defecto si el usuario no elige ninguno.
+        slr.setDefaultLocale(Locale.of("es"));
+        return slr;
+    }
+    
+    /**
+     * Crea un interceptor que detecta cambios de idioma en las solicitudes HTTP.
+     * <p>
+     * Este interceptor busca un parámetro específico en la URL (definido como "lang")
+     * para cambiar el idioma actual.
+     * <br>
+     * Ejemplo de uso: {@code localhost:8080/inicio?lang=en} cambiará el idioma a inglés.
+     * </p>
+     *
+     * @return El interceptor {@link LocaleChangeInterceptor} configurado para escuchar el parámetro "lang".
+     */
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        lci.setParamName("lang");
+        return lci;
+    }
+    
+    /**
+     * Registra los interceptores personalizados en el ciclo de vida de las peticiones de Spring MVC.
+     * <p>
+     * Es necesario sobrescribir este método para que el {@code LocaleChangeInterceptor} definido
+     * anteriormente sea efectivo y se ejecute en cada petición entrante.
+     * </p>
+     *
+     * @param intercepto El registro de interceptores donde añadimos nuestra configuración.
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry intercepto) {
+        intercepto.addInterceptor(localeChangeInterceptor());
+    }
 }
