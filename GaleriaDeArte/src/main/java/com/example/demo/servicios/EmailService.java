@@ -19,8 +19,7 @@ import org.springframework.stereotype.Service;
  * no interrumpan el flujo principal de la aplicación.
  * </p>
  *
- * @author TuNombre
- * @version 1.0
+ * @author Jonathan Ibáñez Piñero
  * @see org.springframework.mail.javamail.JavaMailSender
  */
 @Service
@@ -37,7 +36,7 @@ public class EmailService {
      * Dirección de correo electrónico del remitente.
      * Se inyecta automáticamente desde la propiedad {@code spring.mail.username} definida en la configuración.
      */
-    @Value("${spring.mail.username}")
+    @Value("${app.email.remitente}")
     private String remitente;
 
     /**
