@@ -32,6 +32,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class filtroController {
 
+	/** Repositorio para realizar búsquedas de cuadros. */
     @Autowired
     private CuadroRepository cuadroRepository;
 

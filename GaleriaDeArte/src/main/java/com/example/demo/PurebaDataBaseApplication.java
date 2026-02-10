@@ -21,15 +21,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableAsync
 public class PurebaDataBaseApplication {
-    
-    /**
-     * Constructor por defecto.
-     * <p>
-     * Requerido por el framework Spring para la instanciación inicial.
-     */
-    public PurebaDataBaseApplication() {
-        super();
-    }
 
     /**
      * Método principal (Main) que inicia la ejecución de la aplicación.

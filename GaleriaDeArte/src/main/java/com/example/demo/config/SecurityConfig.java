@@ -41,9 +41,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SecurityConfig {
     
+	/** Servicio personalizado para gestionar el login con Google. */
     @Autowired
     private OAuth2UserService oauthServicio;
 
+    /** Servicio para cargar detalles de usuarios desde la base de datos. */
     @Autowired
     private UserDetailsServiceImp userDetailsService;
     
@@ -71,15 +73,15 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"))
 
         .authorizeHttpRequests((requests) -> requests
-            // --- 1. ZONA PÚBLICA ---
+            // Ruta a la que pueden acceder todos los roles
             // Permitimos acceso total a recursos estáticos (CSS, JS, Imágenes) y páginas de aterrizaje.
             .requestMatchers("/", "/inicio", "/registro", "/css/**", "/js/**" , "/imagenesLogos/**", "/filtrar", "/procesarBusqueda").permitAll()
 
-            // --- 2. ZONA SWAGGER UI ---
+            //Ruta para swagger
             // La documentación de la API es accesible tanto para usuarios registrados como administradores.
             .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").hasAnyRole("ADMIN", "USER")
 
-            // --- 3. API REST (Control Fino) ---
+            // API Rest
             // Los métodos de lectura (GET) son públicos para usuarios autenticados.
             .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/**").hasAnyRole("ADMIN", "USER")
             

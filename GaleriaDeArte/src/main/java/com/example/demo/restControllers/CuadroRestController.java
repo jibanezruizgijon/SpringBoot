@@ -16,12 +16,12 @@ import com.example.demo.repository.CuadroRepository;
  * <p>Base URL: {@code /api/cuadros}
  *
  * @author Jonathan Ibáñez Piñero
- * @version 1.0
  */
 @RestController
 @RequestMapping("/api/cuadros")
 public class CuadroRestController {
 
+	/** Repositorio para acceder a la base de datos de cuadros. */
     @Autowired
     private CuadroRepository cuadroRepository;
 

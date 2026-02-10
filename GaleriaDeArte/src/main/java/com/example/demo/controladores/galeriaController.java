@@ -46,9 +46,11 @@ public class galeriaController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    /** Repositorio para gestionar los votos. */
     @Autowired
     VotoRepository votoRepository;
 
+    /** Servicio con la lógica de negocio de los votos. */
     @Autowired
     VotoService votoService;
     

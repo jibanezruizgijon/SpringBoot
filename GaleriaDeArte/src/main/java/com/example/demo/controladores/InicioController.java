@@ -48,9 +48,11 @@ public class InicioController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    /** Repositorio de votos (necesario para algunas validaciones). */
     @Autowired
     VotoRepository votoRepository;
     
+    /** Encriptador de contraseñas para el registro de usuarios. */
     @Autowired
     private PasswordEncoder passwordEncoder;
 

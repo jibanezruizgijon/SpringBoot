@@ -26,6 +26,7 @@ import com.example.demo.repository.UsuarioRepository;
 @Service
 public class OAuth2UserService extends DefaultOAuth2UserService {
 
+	/** Repositorio para buscar o guardar usuarios que vienen de Google. */
     @Autowired
     private UsuarioRepository usuarioRepository;
     
