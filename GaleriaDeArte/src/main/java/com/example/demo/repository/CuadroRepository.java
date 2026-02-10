@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
  * Añade la funcionalidad completa de CRUD 
  * gracias a la herencia de {@link JpaRepository}.
  * Incluye consultas personalizadas derivadas del nombre del método para búsquedas específicas.
- *
  * @author Jonathan Ibáñez Piñero
  * @see org.springframework.data.jpa.repository.JpaRepository
  */

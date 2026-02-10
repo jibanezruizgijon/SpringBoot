@@ -24,7 +24,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
      * <p>
      * Se utiliza principalmente durante el proceso de login para validar credenciales
      * o para evitar duplicados en el registro.
-     * </p>
      * @param email El correo electrónico único del usuario a buscar.
      * @return El objeto {@link Usuario} si existe, o {@code null} si no se encuentra.
      */
