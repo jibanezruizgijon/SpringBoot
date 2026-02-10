@@ -13,8 +13,7 @@ import com.example.demo.repository.CuadroRepository;
  * <p>
  * Esta clase habilita los endpoints CRUD (Crear, Leer, Actualizar, Borrar) accesibles vía HTTP/JSON.
  * Es utilizada principalmente para la integración con clientes externos o documentación mediante Swagger/OpenAPI.
- * </p>
- * <p>Base URL: {@code /api/cuadros}</p>
+ * <p>Base URL: {@code /api/cuadros}
  *
  * @author Jonathan Ibáñez Piñero
  * @version 1.0
@@ -28,7 +27,7 @@ public class CuadroRestController {
 
     /**
      * Obtiene el listado completo de cuadros registrados en el sistema.
-     * <p>Endpoint: {@code GET /api/cuadros}</p>
+     * <p>Endpoint: {@code GET /api/cuadros}
      *
      * @return Una lista ({@link List}) de objetos {@link Cuadro} en formato JSON.
      */
@@ -39,7 +38,7 @@ public class CuadroRestController {
 
     /**
      * Busca y recupera un cuadro específico por su identificador único.
-     * <p>Endpoint: {@code GET /api/cuadros/{id}}</p>
+     * <p>Endpoint: {@code GET /api/cuadros/{id}}
      *
      * @param id El identificador (Primary Key) del cuadro a buscar.
      * @return Un {@link ResponseEntity} que contiene:
@@ -59,8 +58,8 @@ public class CuadroRestController {
 
     /**
      * Realiza una búsqueda de cuadros filtrando por el nombre del autor.
-     * <p>Endpoint: {@code GET /api/cuadros/buscar?autor=...}</p>
-     * <p>La búsqueda es insensible a mayúsculas/minúsculas (case-insensitive) y parcial (containing).</p>
+     * <p>Endpoint: {@code GET /api/cuadros/buscar?autor=...}
+     * <p>La búsqueda es insensible a mayúsculas/minúsculas (case-insensitive) y parcial (containing).
      *
      * @param autor El nombre (o fragmento del nombre) del autor a buscar.
      * @return Una lista de cuadros que coinciden con el criterio de búsqueda.
@@ -72,9 +71,9 @@ public class CuadroRestController {
 
     /**
      * Crea un nuevo registro de cuadro en la base de datos.
-     * <p>Endpoint: {@code POST /api/cuadros}</p>
+     * <p>Endpoint: {@code POST /api/cuadros}
      * <p><b>Nota:</b> Este endpoint espera un JSON puro. La imagen no se sube aquí como archivo,
-     * sino que se debe proporcionar la URL de la imagen (String) previamente subida a Cloudinary.</p>
+     * sino que se debe proporcionar la URL de la imagen (String) previamente subida a Cloudinary.
      *
      * @param nuevoCuadro El objeto {@link Cuadro} deserializado desde el cuerpo (body) de la petición JSON.
      * @return El objeto {@code Cuadro} persistido, incluyendo su ID generado.
@@ -86,7 +85,7 @@ public class CuadroRestController {
 
     /**
      * Actualiza los datos de un cuadro existente.
-     * <p>Endpoint: {@code PUT /api/cuadros/{id}}</p>
+     * <p>Endpoint: {@code PUT /api/cuadros/{id}}
      *
      * @param id          El identificador del cuadro a modificar.
      * @param cuadroDatos El objeto con los nuevos datos a aplicar (recibido en el body).
@@ -111,7 +110,7 @@ public class CuadroRestController {
 
     /**
      * Elimina un cuadro del sistema.
-     * <p>Endpoint: {@code DELETE /api/cuadros/{id}}</p>
+     * <p>Endpoint: {@code DELETE /api/cuadros/{id}}
      *
      * @param id El identificador del cuadro a eliminar.
      * @return Un {@link ResponseEntity} con:

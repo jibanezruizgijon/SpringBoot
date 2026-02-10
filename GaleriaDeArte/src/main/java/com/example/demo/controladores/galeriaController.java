@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.clases.Cuadro;
 import com.example.demo.clases.Usuario;
 import com.example.demo.repository.*;
+import com.example.demo.servicios.CloudinaryService;
+import com.example.demo.servicios.EmailService;
 import com.example.demo.servicios.VotoService;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Controlador encargado de la visualización e interacción con la galería de arte.
@@ -28,17 +32,17 @@ import jakarta.servlet.http.HttpSession;
  * <li>Visualización del Ranking de mejores cuadros.</li>
  * <li>Funcionalidad de "Cuadro Aleatorio".</li>
  * </ul>
- * </p>
  *
  * @author Jonathan Ibáñez Piñero
- * @version 1.0
  */
 @Controller
 public class galeriaController {
 
+	/** Acceso a datos de los cuadros. */
     @Autowired
     CuadroRepository cuadroRepository;
 
+    /** Acceso a datos de usuario */
     @Autowired
     UsuarioRepository usuarioRepository;
 
@@ -99,7 +103,6 @@ public class galeriaController {
      * <p>
      * Utiliza el servicio {@link VotoService} para aplicar las reglas de negocio (un voto por usuario/cuadro).
      * Si el voto es válido, se registra; si hay error (ej. voto duplicado), se captura y muestra en pantalla.
-     * </p>
      *
      * @param puntuacion Valor numérico del voto.
      * @param CuadroId   Identificador del cuadro votado.
@@ -161,7 +164,6 @@ public class galeriaController {
      * Muestra el Ranking de cuadros ordenados por puntuación.
      * <p>
      * Calcula dinámicamente la media de cada cuadro antes de enviarlo a la vista.
-     * </p>
      * @param session Sesión actual.
      * @param model   Modelo de datos.
      * @return La vista {@code Ranking.html}.

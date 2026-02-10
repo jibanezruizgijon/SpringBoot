@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
  * Entidad JPA que representa un voto o valoración realizada por un usuario sobre una obra de arte.
  * <p>
  * Esta clase mapea la tabla "votos" en la base de datos.
- * </p>
  * 
  * <b>Reglas de Negocio:</b>
  * <ul>
@@ -18,8 +17,7 @@ import lombok.NoArgsConstructor;
  * <li>La fecha del voto se registra automáticamente al instanciar la clase.</li>
  * </ul>
  * 
- * * @author Jonathan Ibáñez Piñero
- * @version 1.0
+ * @author Jonathan Ibáñez Piñero
  * @see Usuario
  * @see Cuadro
  */
@@ -40,7 +38,6 @@ public class Voto {
      * Identificador único del registro de voto (Clave Primaria).
      * <p>
      * Se genera automáticamente mediante la estrategia de auto-incremento de la base de datos.
-     * </p>
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,7 +55,6 @@ public class Voto {
      * <p>
      * Se inicializa automáticamente con {@code LocalDateTime.now()} al crear el objeto,
      * por lo que no es necesario establecerla manualmente salvo para corregir datos.
-     * </p>
      */
     @Column(name = "fechaVoto")
     private LocalDateTime fechaVoto = LocalDateTime.now();
@@ -68,7 +64,6 @@ public class Voto {
      * <p>
      * Relación Muchos-a-Uno: Un usuario puede realizar múltiples votos (a distintos cuadros).
      * Se almacena como clave foránea {@code usuario_id}.
-     * </p>
      */
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
@@ -79,7 +74,6 @@ public class Voto {
      * <p>
      * Relación Muchos-a-Uno: Un cuadro puede recibir múltiples votos (de distintos usuarios).
      * Se almacena como clave foránea {@code cuadro_id}.
-     * </p>
      */
     @ManyToOne
     @JoinColumn(name = "cuadro_id", nullable = false)

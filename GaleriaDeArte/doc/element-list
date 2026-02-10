@@ -3,4 +3,5 @@ com.example.demo.clases
 com.example.demo.config
 com.example.demo.controladores
 com.example.demo.repository
+com.example.demo.restControllers
 com.example.demo.servicios

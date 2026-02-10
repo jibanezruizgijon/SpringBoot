@@ -14,8 +14,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
+import com.example.demo.controladores.AdminController;
+import com.example.demo.repository.CuadroRepository;
+import com.example.demo.repository.UsuarioRepository;
+import com.example.demo.servicios.CloudinaryService;
+import com.example.demo.servicios.EmailService;
 import com.example.demo.servicios.OAuth2UserService;
 import com.example.demo.servicios.UserDetailsServiceImp;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 /**
@@ -23,13 +31,14 @@ import com.example.demo.servicios.UserDetailsServiceImp;
  * <p>
  * Define la cadena de filtros de seguridad, las reglas de autorización por roles,
  * la configuración del formulario de login y la integración con OAuth2 (Google).
- * </p>
  *
  * @author Jonathan Ibáñez Piñero
  * @see org.springframework.security.web.SecurityFilterChain
  */
 @Configuration
 @EnableWebSecurity
+@Data
+@NoArgsConstructor
 public class SecurityConfig {
     
     @Autowired
@@ -49,7 +58,6 @@ public class SecurityConfig {
      * <li>Configuración del inicio de sesión dual (Formulario clásico + OAuth2 Google).</li>
      * <li>Configuración del cierre de sesión (Logout).</li>
      * </ul>
-     * </p>
      *
      * @param http El objeto {@link HttpSecurity} que permite configurar la seguridad web.
      * @return La cadena de filtros construida y lista para ser gestionada por Spring.
@@ -118,7 +126,6 @@ public class SecurityConfig {
      * <p>
      * Se utiliza {@link BCryptPasswordEncoder}, que es el estándar actual recomendado por Spring Security
      * por ser un algoritmo de hash adaptativo y seguro.
-     * </p>
      *
      * @return Una instancia del codificador BCrypt.
      */
@@ -132,7 +139,6 @@ public class SecurityConfig {
      * <p>
      * Este componente conecta el servicio de usuarios (UserDetailsService) con el sistema de seguridad,
      * indicándole cómo buscar usuarios en la base de datos y cómo verificar sus contraseñas encriptadas.
-     * </p>
      *
      * @param userDetailsService El servicio que carga los datos del usuario desde la BBDD.
      * @param passwordEncoder    El codificador para verificar que la contraseña ingresada coincide con la hash guardada.

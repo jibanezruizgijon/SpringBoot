@@ -16,10 +16,8 @@ import lombok.NoArgsConstructor;
  * <p>
  * Esta clase mapea la tabla "usuarios" en la base de datos y contiene la información
  * descriptiva de la obra, su autoría, clasificación histórica y la referencia a su imagen digital.
- * </p>
  * Usa Lombok (@Data) para generar automáticamente getters, setters, toString, etc.
- * * @author Jonathan Ibáñez Piñero
- * @version 1.0
+ * @author Jonathan Ibáñez Piñero
  */
 @Data
 @AllArgsConstructor
@@ -66,7 +64,6 @@ public class Usuario {
      * <p>
      * Se utiliza al crear un objeto {@code Usuario} antes de guardarlo en la base de datos,
      * por lo que no requiere el ID (que se autogenera) ni la media (que se calcula después).
-     * </p>
      *
      * @param nombre       El nombre del usuario.
      * @param email        El email del usuario.

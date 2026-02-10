@@ -5,9 +5,7 @@ package com.example.demo.clases;
  * <p>
  * Se utiliza para categorizar los cuadros y facilitar el filtrado de obras en el buscador.
  * Los valores se almacenan en la base de datos como cadenas de texto (STRING) para mayor legibilidad.
- * </p>
- * * @author Jonathan Ibáñez Piñero
- * @version 1.0
+ * @author Jonathan Ibáñez Piñero
  */
 public enum EpocaPintura {
     /** Estilo artístico del siglo XVII y XVIII caracterizado por la ornamentación excesiva. */

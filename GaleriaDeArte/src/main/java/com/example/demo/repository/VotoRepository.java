@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  * <li>Consultas JPQL personalizadas para cálculos estadísticos (medias).</li>
  * <li>Proyecciones de datos para optimizar el rendimiento en listados.</li>
  * </ul>
- * </p>
  *
  * @author Jonathan Ibáñez Piñero
  * @see JpaRepository
@@ -48,7 +47,6 @@ public interface VotoRepository extends JpaRepository<Voto, Long> {
      * Utiliza una consulta JPQL personalizada con la función de agregación {@code AVG}
      * para procesar el cálculo eficientemente en la base de datos, descargando a la aplicación
      * de la tarea de iterar sobre todos los registros.
-     * </p>
      *
      * @param cuadroId Identificador del cuadro del que se quiere obtener la media.
      * @return El promedio de puntuación como {@code Double}. Devuelve {@code null} si el cuadro aún no tiene votos.
@@ -63,8 +61,7 @@ public interface VotoRepository extends JpaRepository<Voto, Long> {
      * Solo extrae los identificadores (Long). Esto es muy eficiente para la interfaz de usuario,
      * permitiendo saber rápidamente qué cuadros deben mostrarse como "ya votados" o deshabilitados
      * en una galería grande sin cargar datos innecesarios en memoria.
-     * </p>
-     * * @param usuarioId El identificador del usuario del que queremos consultar su historial de votos.
+     * @param usuarioId El identificador del usuario del que queremos consultar su historial de votos.
      * @return Una lista de {@code Long} que representa los IDs de los cuadros ya votados por dicho usuario.
      */
     @Query("SELECT v.cuadro.id FROM Voto v WHERE v.usuario.id = :usuarioId")

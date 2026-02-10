@@ -25,7 +25,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
      * Se utiliza principalmente durante el proceso de login para validar credenciales
      * o para evitar duplicados en el registro.
      * </p>
-     * * @param email El correo electrónico único del usuario a buscar.
+     * @param email El correo electrónico único del usuario a buscar.
      * @return El objeto {@link Usuario} si existe, o {@code null} si no se encuentra.
      */
     Usuario findByEmail(String email);
@@ -36,7 +36,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
      * Este método es más eficiente que recuperar todo el objeto usuario si solo
      * queremos saber si el correo ya está en uso (útil para validaciones en formularios).
      * </p>
-     * * @param email El correo electrónico a comprobar.
+     * @param email El correo electrónico a comprobar.
      * @return {@code true} si el email ya existe en la base de datos, {@code false} en caso contrario.
      */
     boolean existsByEmail(String email); 
@@ -46,7 +46,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
      * <p>
      * Realiza una búsqueda exacta sobre el campo 'rol' de la entidad {@link Usuario}.
      * </p>
-     * * @param rol El nombre del rol a buscar (ej: "ROLE_ADMIN", "ROLE_USER").
+     * @param rol El nombre del rol a buscar (ej: "ROLE_ADMIN", "ROLE_USER").
      * @return Una lista de usuarios que poseen dicho rol. Si no hay ninguno, devuelve una lista vacía.
      */
     List<Usuario> findByRol(String rol);

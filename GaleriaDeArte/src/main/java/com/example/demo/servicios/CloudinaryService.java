@@ -15,10 +15,8 @@ import java.util.Map;
  * Esta clase actúa como un wrapper (envoltorio) sobre la librería cliente de Cloudinary,
  * permitiendo desacoplar la lógica de almacenamiento de la aplicación principal.
  * Se encarga de transformar los archivos recibidos en el controlador y enviarlos a los servidores de Cloudinary.
- * </p>
  *
- * @author TuNombre
- * @version 1.0
+ * @author Jonathan Ibáñez piñero
  * @see com.example.demo.config.CloudinaryConfig
  */
 @Service
@@ -35,7 +33,6 @@ public class CloudinaryService {
      * <p>
      * Este método realiza una validación previa para asegurar que el archivo no sea nulo o esté vacío.
      * Posteriormente, utiliza la API de Cloudinary para cargar el archivo y obtener sus metadatos.
-     * </p>
      *
      * @param file El archivo {@link MultipartFile} recibido desde el formulario web.
      * Debe ser una imagen válida.

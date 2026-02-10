@@ -10,6 +10,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import com.example.demo.controladores.AdminController;
+import com.example.demo.repository.CuadroRepository;
+import com.example.demo.repository.UsuarioRepository;
+import com.example.demo.servicios.CloudinaryService;
+import com.example.demo.servicios.EmailService;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * Configuración de la capa Web MVC para la gestión de la Internacionalización (i18n).
  * <p>
@@ -17,12 +26,13 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
  * Utiliza un mecanismo basado en sesiones ({@link SessionLocaleResolver}), lo que permite que
  * la preferencia de idioma persista durante toda la navegación del usuario hasta que cierre el navegador
  * o expire su sesión.
- * </p>
  *
  * @author Jonathan Ibáñez Piñero
  * @see WebMvcConfigurer
  */
 @Configuration
+@Data
+@NoArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
     /**
@@ -30,8 +40,7 @@ public class WebConfig implements WebMvcConfigurer {
      * <p>
      * Se configura un {@link SessionLocaleResolver} para almacenar la elección del idioma
      * en la sesión HTTP del usuario.
-     * </p>
-     * * @return El bean {@code LocaleResolver} configurado con el español ("es") como idioma predeterminado.
+     * @return El bean {@code LocaleResolver} configurado con el español ("es") como idioma predeterminado.
      */
     @Bean
     public LocaleResolver localeResolver() {
@@ -48,7 +57,6 @@ public class WebConfig implements WebMvcConfigurer {
      * para cambiar el idioma actual.
      * <br>
      * Ejemplo de uso: {@code localhost:8080/inicio?lang=en} cambiará el idioma a inglés.
-     * </p>
      *
      * @return El interceptor {@link LocaleChangeInterceptor} configurado para escuchar el parámetro "lang".
      */
@@ -64,7 +72,6 @@ public class WebConfig implements WebMvcConfigurer {
      * <p>
      * Es necesario sobrescribir este método para que el {@code LocaleChangeInterceptor} definido
      * anteriormente sea efectivo y se ejecute en cada petición entrante.
-     * </p>
      *
      * @param intercepto El registro de interceptores donde añadimos nuestra configuración.
      */

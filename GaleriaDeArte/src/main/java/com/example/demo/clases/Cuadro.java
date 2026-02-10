@@ -18,10 +18,8 @@ import lombok.NoArgsConstructor;
  * <p>
  * Esta clase mapea la tabla "cuadros" en la base de datos y contiene la información
  * descriptiva de la obra, su autoría, clasificación histórica y la referencia a su imagen digital.
- * </p>
  * Usa Lombok (@Data) para generar automáticamente getters, setters, toString, etc.
- * * @author Jonathan Ibáñez Piñero
- * @version 1.0
+ * @author Jonathan Ibáñez Piñero
  */
 @Data
 @AllArgsConstructor
@@ -44,7 +42,6 @@ public class Cuadro {
      * Este campo está marcado como {@code @Transient}, lo que significa que 
      * <b>NO se guarda en la base de datos</b>. Se calcula en tiempo de ejecución
      * obteniendo la media de la tabla de votos asociada.
-     * </p>
      */
     @Transient 
     private Double media;
@@ -65,7 +62,6 @@ public class Cuadro {
      * <p>
      * Se almacena en la base de datos como un {@code STRING} (texto literal) 
      * en lugar de un número ordinal, para mayor legibilidad en la BBDD.
-     * </p>
      * @see EpocaPintura
      */
     @Enumerated(EnumType.STRING)
@@ -82,7 +78,6 @@ public class Cuadro {
      * <p>
      * Se utiliza al crear un objeto {@code Cuadro} antes de guardarlo en la base de datos,
      * por lo que no requiere el ID (que se autogenera) ni la media (que se calcula después).
-     * </p>
      *
      * @param nombre       El título de la obra.
      * @param autor        El nombre del artista.

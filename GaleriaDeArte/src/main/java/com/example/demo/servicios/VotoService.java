@@ -12,10 +12,8 @@ import com.example.demo.repository.VotoRepository;
  * <p>
  * Esta clase actúa como intermediaria entre los controladores y la capa de persistencia,
  * gestionando las reglas de validación para emitir votos y el cálculo de estadísticas.
- * </p>
  *
- * @author TuNombre (o Nombre de la Organización)
- * @version 1.0
+ * @author Jonathan Ibáñez piñero
  * @see com.example.demo.clases.Voto
  * @see com.example.demo.clases.Cuadro
  */
@@ -56,21 +54,21 @@ public class VotoService {
      */
     public void registrarVoto(Long usuarioId, Long cuadroId, int puntuacion) {
 
-        // 1. Validación de regla de negocio: Un usuario no puede votar dos veces el mismo cuadro
+        // Validación de regla de negocio: Un usuario no puede votar dos veces el mismo cuadro
         boolean existeVotoPrevio = votoRepository.existsByUsuarioIdAndCuadroId(usuarioId, cuadroId);
 
         if (existeVotoPrevio) {
             throw new RuntimeException("Error: El usuario con ID " + usuarioId + " ya ha votado por el cuadro " + cuadroId + ".");
         }
 
-        // 2. Recuperación de entidades (Usuario y Cuadro)
+        // Recuperación de entidades (Usuario y Cuadro)
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("No se encontró el usuario con id: " + usuarioId));
 
         Cuadro cuadro = cuadroRepository.findById(cuadroId)
                 .orElseThrow(() -> new RuntimeException("No se encontró el cuadro con id: " + cuadroId));
         
-        // 3. Creación y persistencia del voto
+        // Creación y persistencia del voto
         Voto nuevoVoto = new Voto();
         nuevoVoto.setUsuario(usuario);
         nuevoVoto.setCuadro(cuadro);
@@ -83,7 +81,6 @@ public class VotoService {
      * Calcula y obtiene la puntuación media de un cuadro.
      * <p>
      * Utiliza una consulta agregada en el repositorio para obtener el promedio.
-     * </p>
      *
      * @param cuadroId El identificador del cuadro del que se quiere obtener la media.
      * @return Un valor {@code double} que representa la media aritmética de los votos.

@@ -19,10 +19,8 @@ import com.example.demo.repository.UsuarioRepository;
  * Esta clase extiende {@link DefaultOAuth2UserService} para interceptar el momento en que un usuario
  * inicia sesión exitosamente con un proveedor externo (Google). Su función principal es sincronizar
  * el usuario de Google con la base de datos local (Auto-Registro).
- * </p>
  *
- * @author TuNombre
- * @version 1.0
+ * @author Jonathan Ibáñez Piñero
  * @see org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService
  */
 @Service
@@ -51,7 +49,6 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
      * <li><b>Si el usuario NO existe (primera vez):</b> Lo crea automáticamente, asignándole el rol "ROLE_USER"
      * y una contraseña interna protegida.</li>
      * </ol>
-     * </p>
      *
      * @param userRequest Objeto que contiene la solicitud de acceso y el token del usuario.
      * @return Un objeto {@link OAuth2User} con los detalles del usuario autenticado.
@@ -59,24 +56,23 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
      */
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        // 1. Carga el usuario de Google utilizando la implementación por defecto de Spring Security
+        // Carga el usuario de Google utilizando la implementación por defecto de Spring Security
         OAuth2User user = super.loadUser(userRequest);
 
-        // 2. Extrae los datos necesarios del perfil de Google
+        // Extrae los datos necesarios del perfil de Google
         String email = user.getAttribute("email");
         String nombreGoogle = user.getAttribute("name");
 
-        // 3. Comprueba si el usuario ya existe en nuestra base de datos local
+        // Comprueba si el usuario ya existe en nuestra base de datos local
         Usuario usuarioExistente = usuarioRepository.findByEmail(email);
 
         if (usuarioExistente == null) {
-            // 4. Lógica de Auto-Registro: Si no existe, creamos el usuario en nuestra BBDD
+            // Lógica de Auto-Registro: Si no existe, creamos el usuario en nuestra BBDD
             Usuario nuevoUsuario = new Usuario();
             nuevoUsuario.setEmail(email);
             nuevoUsuario.setNombre(nombreGoogle);
             
-            // Asignamos una contraseña interna codificada para cumplir con la estructura de la entidad Usuario.
-            // Nota: Este usuario no usará esta contraseña para entrar, sino su cuenta de Google.
+            // Asigna una contraseña interna codificada para cumplir con la estructura de la entidad Usuario.
             nuevoUsuario.setPassword(passwordEncoder.encode("GOOGLE_AUTH_HIDDEN"));
             
             nuevoUsuario.setRol("ROLE_USER");
