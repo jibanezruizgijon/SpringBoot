@@ -31,7 +31,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
     private UsuarioRepository usuarioRepository;
     
     /** * Codificador de contraseñas.
-     * Se usa la anotación {@code @Lazy} para evitar una dependencia circular ("Circular Dependency Injection"),
+     * Se usa la anotación {@code @Lazy} para evitar una dependencia circular,
      * ya que el SecurityConfig suele depender de los servicios de usuario, y este servicio depende
      * del encoder definido en SecurityConfig.
      */

@@ -61,9 +61,9 @@ public class filtroController {
      * <li><b>Época:</b> Búsqueda exacta por el enum {@link EpocaPintura}.</li>
      * </ul>
      *
-     * @param tipo  El criterio de búsqueda seleccionado ("autor" o "epoca").
-     * @param autor El texto introducido para buscar por nombre de autor (opcional).
-     * @param epoca La época seleccionada en el desplegable (opcional).
+     * @param tipo  El tipo de búsqueda seleccionado ("autor" o "epoca").
+     * @param autor El autor introducido por el que se filtrarán los cuadros.
+     * @param epoca La época seleccionada en el desplegable.
      * @param model Modelo para devolver los resultados y recargar el formulario.
      * @return La misma vista {@code filtraCuadros.html} pero ahora con la lista de resultados poblada.
      */
@@ -82,7 +82,7 @@ public class filtroController {
             resultados = cuadroRepository.findByEpocaPintura(epoca);
         }
         
-        // Inyectamos los resultados en la vista
+        // Envía los resultados en la vista
         model.addAttribute("resultados", resultados); 
         // Es necesario volver a enviar las épocas para que el desplegable se vuelva a llenar después de recargar
         model.addAttribute("epocas", EpocaPintura.values()); 

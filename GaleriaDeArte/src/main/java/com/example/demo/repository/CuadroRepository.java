@@ -29,7 +29,7 @@ public interface CuadroRepository extends JpaRepository<Cuadro, Long> {
     /**
      * Obtiene una lista de todos los cuadros ordenados por su puntuación media.
      * <p>
-     * Utiliza una consulta JPQL personalizada que calcula el promedio (AVG) de las puntuaciones
+     * Utiliza una consulta que calcula el promedio (AVG) de las puntuaciones
      * en la tabla de votos asociada a cada cuadro y ordena los resultados de mayor a menor (DESC).
      * @return Lista de cuadros ordenados por votos de mayor a menor puntuación media.
      */
@@ -37,17 +37,17 @@ public interface CuadroRepository extends JpaRepository<Cuadro, Long> {
     List<Cuadro> obtenerRanking();
 
     /**
-     * Busca cuadros cuyo nombre de autor contenga el texto proporcionado.
+     * Busca cuadros creados por el autor especificado 
      * <p>
      * La búsqueda es "case-insensitive" (ignora mayúsculas y minúsculas) y parcial
      * (el texto buscado puede estar en cualquier parte del nombre del autor).
-     * @param autor Fragmento del nombre del autor a buscar (ej: "Picasso", "vinci").
+     * @param autor Fragmento del nombre del autor a buscar.
      * @return Una lista de cuadros cuyos autores coinciden con el criterio de búsqueda.
      */
     List<Cuadro> findByAutorContainingIgnoreCase(String autor);
 
     /**
-     * Filtra los cuadros que pertenecen a una época pictórica específica.
+     * Filtra los cuadros que pertenecen a una época o estilo artístico específico.
      * <p>
      * Realiza una búsqueda exacta basada en el enumerado {@link EpocaPintura}.
      * @param epocaPintura La época o estilo artístico por el que se desea filtrar.

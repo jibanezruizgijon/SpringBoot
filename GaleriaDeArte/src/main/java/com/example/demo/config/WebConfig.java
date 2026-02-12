@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 /**
  * Configuración de la capa Web MVC para la gestión de la Internacionalización (i18n).
  * <p>
- * Esta clase define cómo la aplicación resuelve y mantiene el idioma seleccionado por el usuario.
+ * Esta clase define cómo la aplicación cambia y mantiene el idioma seleccionado por el usuario.
  * Utiliza un mecanismo basado en sesiones ({@link SessionLocaleResolver}), lo que permite que
  * la preferencia de idioma persista durante toda la navegación del usuario hasta que cierre el navegador
  * o expire su sesión.

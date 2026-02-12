@@ -51,15 +51,14 @@ function eliminarCuadro(url) {
 function mostrarFiltro(tipo) {
     const divAutor = document.getElementById('divAutor');
     const divEpoca = document.getElementById('divEpoca');
-    
-    // Clase modificadora BEM para ocultar
+
     const claseOculto = 'buscador__grupo--oculto';
 
     if (tipo === 'autor') {
         divAutor.classList.remove(claseOculto);
         divEpoca.classList.add(claseOculto);
         
-        // Limpiamos select
+        // limpia el select select
         const selectEpoca = divEpoca.querySelector('select');
         if(selectEpoca) selectEpoca.selectedIndex = 0;
 
@@ -67,7 +66,7 @@ function mostrarFiltro(tipo) {
         divAutor.classList.add(claseOculto);
         divEpoca.classList.remove(claseOculto);
         
-        // Limpiamos input
+        // limpia el input
         const inputAutor = divAutor.querySelector('input');
         if(inputAutor) inputAutor.value = '';
     }

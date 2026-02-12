@@ -39,7 +39,7 @@ public class EmailService {
     private String remitente;
 
     /**
-     * Procesa el envío masivo de correos a una lista de usuarios en segundo plano.
+     * Procesa el envío de correos a una lista de usuarios en segundo plano.
      * <p>
      * Al estar anotado con {@code @Async}, este método se ejecuta en un hilo independiente.
      * Esto permite liberar el hilo principal del Controlador inmediatamente, mejorando
@@ -72,7 +72,7 @@ public class EmailService {
     }
 
     /**
-     * Envía un correo electrónico de texto plano (Simple Mail) a un destinatario específico.
+     * Envía un correo electrónico de texto plano a los usuarios.
      * <p>
      * <b>Nota sobre el manejo de errores:</b> Este método encapsula el envío en un bloque {@code try-catch}.
      * Si ocurre un error, se registra en el log pero <b>NO</b> se lanza la excepción,

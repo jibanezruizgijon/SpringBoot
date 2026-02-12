@@ -1,6 +1,5 @@
 package com.example.demo.clases;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,8 +14,12 @@ import lombok.NoArgsConstructor;
  * Entidad JPA que representa un usuario.
  * <p>
  * Esta clase mapea la tabla "usuarios" en la base de datos y contiene la información
- * descriptiva de la obra, su autoría, clasificación histórica y la referencia a su imagen digital.
+ * de credenciales (nombre, email y contraseña)  y el rol de acceso
+ * para la gestión de seguridad (Spring Security).
  * Usa Lombok (@Data) para generar automáticamente getters, setters, toString, etc.
+ * También usa (@AllArgsConstructor) para que cree un contructor con todas las variables
+ * y (@NoArgsConstructor) para que cree el constructor por defecto.
+ *
  * @author Jonathan Ibáñez Piñero
  */
 @Data
@@ -26,8 +29,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "usuarios")
 public class Usuario {
     
-	/**
+    /**
      * Identificador único del usuario (Clave Primaria).
+     * <p>
      * Se genera automáticamente por la base de datos (Auto-increment).
      */
     @Id
@@ -35,40 +39,45 @@ public class Usuario {
     private Long id;
     
     /**
-     * Nombre del usuario
+     * Nombre completo o alias del usuario.
      */
     private String nombre;
     
     /**
-     * Correo electrónico que en la base de datos es único
+     * Correo electrónico del usuario.
+     * <p>
+     * Se utiliza como nombre de usuario (username) para el inicio de sesión.
+     * La restricción en la base de datos asegura que sea único para evitar cuentas duplicadas.
      */
     @Column(unique = true)
     private String email;
 
     /**
-     * Contraseña del usuario
+     * Contraseña del usuario.
+     * <p>
+     * Se guarda en la base de datos encriptada (mediante BCrypt).
      */
     private String password;
+    
     /**
-     * Rol del usuario.
-     * 
-     * El usuario no lo elige, se asigna de forma predeterminada el rol USER
-     * 
-     * Solo existe un rol diferente que es ADMIN 
+     * Rol de autorización del usuario.
+     * <p>
+     * Define los permisos de navegación y acciones dentro de la aplicación.
+     * Los usuarios nuevos reciben el rol "ROLE_USER" por defecto, mientras que
+     * las cuentas de gestión operan con "ROLE_ADMIN".
      */
     private String rol;
 
-    
     /**
      * Constructor personalizado para registrar nuevos usuarios.
      * <p>
-     * Se utiliza al crear un objeto {@code Usuario} antes de guardarlo en la base de datos,
-     * por lo que no requiere el ID (que se autogenera) ni la media (que se calcula después).
+     * Se utiliza para instanciar un objeto {@code Usuario} antes de persistirlo
+     * en la base de datos. No requiere el ID, ya que se autogenera.
      *
-     * @param nombre       El nombre del usuario.
-     * @param email        El email del usuario.
-     * @param password 	   La contraseña del usuario.
-     * @param rol          Asigna el rol automáticamente (siempre USER)
+     * @param nombre   El nombre del usuario.
+     * @param email    El correo electrónico de contacto y acceso.
+     * @param password La contraseña (previamente cifrada).
+     * @param rol      El rol asignado (Por defecto USER)
      */
     public Usuario(String nombre, String email, String password, String rol) {
         this.nombre = nombre;

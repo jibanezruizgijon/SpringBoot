@@ -31,6 +31,7 @@ import lombok.NoArgsConstructor;
  * <li>Sistema de votación (comprobando permisos y duplicados).</li>
  * <li>Visualización del Ranking de mejores cuadros.</li>
  * <li>Funcionalidad de "Cuadro Aleatorio".</li>
+ * <li>Cierre de Sesión.</li>
  * </ul>
  *
  * @author Jonathan Ibáñez Piñero
@@ -58,7 +59,7 @@ public class galeriaController {
      * Muestra la galería principal de cuadros.
      * <p>
      * Además de cargar los cuadros, este método comprueba qué cuadros ha votado ya el usuario autenticado
-     * para deshabilitar el botón de voto en la vista (mejora de UX).
+     * para deshabilitar el botón de voto en la vista.
      * </p>
      *
      * @param model     Modelo de datos para la vista.
@@ -68,19 +69,19 @@ public class galeriaController {
     @GetMapping("/galeria")
     public String mostrarGaleria(Model model, Principal principal) {
         
-        // 1. Cargar todos los cuadros
+        // Carga todos los cuadros
         List<Cuadro> galeria = cuadroRepository.findAll();
         if (galeria == null) {
             return "redirect:/acceso";
         }
         model.addAttribute("galeria", galeria);
 
-        // 2. Lógica de UI: Identificar votos previos del usuario
+        //  Busca los votos previos del usuario
         List<Long> cuadrosVotados = new ArrayList<>();
 
         if (principal != null) {
             String email = "";
-            // Detección de tipo de login (OAuth2 vs Local)
+            // Detección de tipo de login (OAuth2 o Local)
             if (principal instanceof OAuth2AuthenticationToken) {
                 email = ((OAuth2AuthenticationToken) principal).getPrincipal().getAttribute("email");
             } else {
@@ -89,7 +90,6 @@ public class galeriaController {
 
             Usuario usuario = usuarioRepository.findByEmail(email);
             if (usuario != null) {
-                // Recuperamos solo los IDs para optimizar el rendimiento
                 cuadrosVotados = votoRepository.obtenerIdsCuadrosVotadosPorUsuario(usuario.getId());
             }
         }
@@ -125,7 +125,7 @@ public class galeriaController {
         }
 
         try {
-            // Identificación robusta del usuario (compatible con Google y Local)
+            // Identificación del usuario (compatible con Google y Local)
             String emailUsuario = null;
             if (principal instanceof OAuth2AuthenticationToken) {
                 emailUsuario = ((OAuth2AuthenticationToken) principal).getPrincipal().getAttribute("email");
@@ -154,8 +154,7 @@ public class galeriaController {
                 model.addAttribute("idCuadroError", Long.parseLong(CuadroId));
             }
             model.addAttribute("galeria", galeria);
-            // IMPORTANTE: Recargamos los votos del usuario para que la vista no pierda el estado de los botones
-            // (Nota: Aquí podrías refactorizar para no repetir la lógica de 'mostrarGaleria')
+            // Recarga los votos del usuario para que la vista no pierda el estado de los botones
             return "galeria";
         }
         

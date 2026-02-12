@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Servicio de infraestructura encargado de la gestión de activos multimedia en la nube.
+ * Servicio de infraestructura encargado de la gestionar las imágenes y las rutas de las imágenes (Cloudinary).
  * <p>
- * Esta clase actúa como un wrapper (envoltorio) sobre la librería cliente de Cloudinary,
+ * Esta clase actúa sobre la librería cliente de Cloudinary,
  * permitiendo desacoplar la lógica de almacenamiento de la aplicación principal.
  * Se encarga de transformar los archivos recibidos en el controlador y enviarlos a los servidores de Cloudinary.
  *

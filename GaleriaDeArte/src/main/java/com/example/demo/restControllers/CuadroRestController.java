@@ -9,9 +9,9 @@ import com.example.demo.clases.Cuadro;
 import com.example.demo.repository.CuadroRepository;
 
 /**
- * Controlador REST que expone la API para la gestión de recursos 'Cuadro'.
+ * Controlador REST que expone la API para la gestión de Cuadros.
  * <p>
- * Esta clase habilita los endpoints CRUD (Crear, Leer, Actualizar, Borrar) accesibles vía HTTP/JSON.
+ * Esta clase habilita los endpoints CRUD accesibles vía HTTP/JSON.
  * Es utilizada principalmente para la integración con clientes externos o documentación mediante Swagger/OpenAPI.
  * <p>Base URL: {@code /api/cuadros}
  *
@@ -59,7 +59,7 @@ public class CuadroRestController {
     /**
      * Realiza una búsqueda de cuadros filtrando por el nombre del autor.
      * <p>Endpoint: {@code GET /api/cuadros/buscar?autor=...}
-     * <p>La búsqueda es insensible a mayúsculas/minúsculas (case-insensitive) y parcial (containing).
+     * <p>La búsqueda es insensible a mayúsculas/minúsculas (case-insensitive) y parcial.
      *
      * @param autor El nombre (o fragmento del nombre) del autor a buscar.
      * @return Una lista de cuadros que coinciden con el criterio de búsqueda.
@@ -115,7 +115,7 @@ public class CuadroRestController {
      * @param id El identificador del cuadro a eliminar.
      * @return Un {@link ResponseEntity} con:
      * <ul>
-     * <li><b>204 No Content</b> si el borrado fue exitoso (estándar REST para borrados).</li>
+     * <li><b>204 No Content</b> si el borrado fue exitoso.</li>
      * <li><b>404 Not Found</b> si el cuadro no existía previamente.</li>
      * </ul>
      */

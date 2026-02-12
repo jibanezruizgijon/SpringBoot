@@ -79,7 +79,7 @@ img {
     transform: none;
 }
 
-/* --- MEDIA QUERY: PANTALLAS DE ESCRITORIO --- */
+
 @media (min-width: 850px) {
     header {
         flex-direction: row; 
@@ -96,7 +96,7 @@ img {
     }
 }
 
-/* --- MEDIA QUERY: PANTALLAS MUY GRANDES (Límite 1200px) --- */
+
 
 @media (min-width: 1260px) {
     .volver {

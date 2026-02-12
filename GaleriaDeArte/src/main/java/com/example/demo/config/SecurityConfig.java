@@ -52,10 +52,10 @@ public class SecurityConfig {
     /**
      * Define la cadena de filtros de seguridad (Security Filter Chain).
      * <p>
-     * Aquí se especifican todas las políticas de acceso HTTP, incluyendo:
+     *  Políticas de acceso HTTP:
      * <ul>
      * <li>Desactivación de CSRF para endpoints de la API REST.</li>
-     * <li>Listas blancas de URL públicas (css, js, inicio, registro).</li>
+     * <li>Rutas de URL públicas (css, js, inicio, registro).</li>
      * <li>Restricciones de acceso basadas en roles (ADMIN vs USER) para Swagger y la API.</li>
      * <li>Configuración del inicio de sesión dual (Formulario clásico + OAuth2 Google).</li>
      * <li>Configuración del cierre de sesión (Logout).</li>
@@ -88,23 +88,23 @@ public class SecurityConfig {
             // Los métodos de escritura (POST, PUT, DELETE) son exclusivos del ADMIN.
             .requestMatchers("/api/**").hasRole("ADMIN")
 
-            // --- 4. ZONA ADMINISTRATIVA WEB ---
+            //  ZONA ADMINISTRATIVA WEB
             // Rutas de controladores MVC que modifican datos sensibles.
             .requestMatchers("/nuevoCuadro", "/guardarCuadro", "/eliminarCuadro", "/modificarCuadro").hasRole("ADMIN")
             
-            // --- 5. REGLA POR DEFECTO ---
+            //  REGLA POR DEFECTO
             // Cualquier otra petición no listada arriba requiere autenticación.
             .anyRequest().authenticated())
             
-            // --- CONFIGURACIÓN DE LOGIN (Formulario Propio) ---
+            // CONFIGURACIÓN DE LOGIN (Formulario) 
             .formLogin((form) -> form
-                .loginPage("/inicio") // Página personalizada del formulario
-                .loginProcessingUrl("/login") // URL donde Spring espera recibir el POST con credenciales
-                .usernameParameter("email") // Importante: usamos 'email' en lugar de 'username'
-                .defaultSuccessUrl("/acceso", true) // Redirección tras éxito
+                .loginPage("/inicio") 
+                .loginProcessingUrl("/login") 
+                .usernameParameter("email") 
+                .defaultSuccessUrl("/acceso", true) 
                 .permitAll())
             
-            // --- CONFIGURACIÓN DE OAUTH2 (Login con Google) ---
+            // CONFIGURACIÓN DE OAUTH2 (Login con Google) 
             .oauth2Login(oauth2 -> oauth2
                     .loginPage("/inicio") 
                     .defaultSuccessUrl("/acceso", true)
@@ -113,11 +113,11 @@ public class SecurityConfig {
                     )
                 )
             
-            // --- CONFIGURACIÓN DE LOGOUT ---
+            //  CONFIGURACIÓN DE LOGOUT 
             .logout((logout) -> logout
-                // Permitimos logout mediante petición GET (útil para enlaces simples en HTML)
+                // permite logout mediante petición GET (útil para enlaces simples en HTML)
                 .logoutRequestMatcher(new RegexRequestMatcher("/logout", "GET"))
-                .logoutSuccessUrl("/inicio?logout") // Redirección tras salir
+                .logoutSuccessUrl("/inicio?logout") 
                 .permitAll());
 
         return http.build();
@@ -126,7 +126,7 @@ public class SecurityConfig {
     /**
      * Define el algoritmo de encriptación de contraseñas.
      * <p>
-     * Se utiliza {@link BCryptPasswordEncoder}, que es el estándar actual recomendado por Spring Security
+     * Se utiliza {@link BCryptPasswordEncoder}, es el estándar actual recomendado por Spring Security
      * por ser un algoritmo de hash adaptativo y seguro.
      *
      * @return Una instancia del codificador BCrypt.

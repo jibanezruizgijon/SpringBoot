@@ -17,8 +17,10 @@ import lombok.NoArgsConstructor;
  * Entidad JPA que representa una obra de arte (Cuadro).
  * <p>
  * Esta clase mapea la tabla "cuadros" en la base de datos y contiene la información
- * descriptiva de la obra, su autoría, clasificación histórica y la referencia a su imagen digital.
+ * de la obra:su nombre, su autor/a, clasificación histórica y la referencia a su imagen.
  * Usa Lombok (@Data) para generar automáticamente getters, setters, toString, etc.
+ * También usa (@AllArgsConstructor) para que cree un contructor con todas las variables
+ * y (@NoArgsConstructor) para que cree el constructor por defecto.
  * @author Jonathan Ibáñez Piñero
  */
 @Data
@@ -29,7 +31,7 @@ import lombok.NoArgsConstructor;
 public class Cuadro {
 
     /**
-     * Identificador único del cuadro (Clave Primaria).s
+     * Identificador único del cuadro (Clave Primaria).
      * Se genera automáticamente por la base de datos (Auto-increment).
      */
     @Id
@@ -60,7 +62,7 @@ public class Cuadro {
     /**
      * Clasificación histórica o estilo artístico al que pertenece el cuadro.
      * <p>
-     * Se almacena en la base de datos como un {@code STRING} (texto literal) 
+     * Se almacena en la base de datos como un {@code STRING}
      * en lugar de un número ordinal, para mayor legibilidad en la BBDD.
      * @see EpocaPintura
      */
@@ -69,7 +71,7 @@ public class Cuadro {
 
     /**
      * URL pública donde se encuentra alojada la imagen del cuadro.
-     * Generalmente apunta a un servicio de almacenamiento externo (ej. Cloudinary).
+     * Apunta apunta a un servicio de almacenamiento externo (Cloudinary).
      */
     private String urlImg;
 

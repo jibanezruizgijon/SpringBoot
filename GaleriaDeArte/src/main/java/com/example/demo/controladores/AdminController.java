@@ -94,7 +94,7 @@ public class AdminController {
 		String urlImagen = null;
 
 		try {
-			// Delegamos la subida al servicio externo
+			// Delega la subida al servicio externo
 			urlImagen = cloudinaryService.subirImagen(imagen);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,7 +109,7 @@ public class AdminController {
 	}
 
 	/**
-	 * Muestra la vista de previsualización para enviar un correo masivo sobre un
+	 * Muestra la vista de previsualización para enviar un correo a todos los usuarios sobre un
 	 * cuadro nuevo.
 	 * 
 	 * @param id    Identificador del cuadro recién creado.
@@ -181,11 +181,10 @@ public class AdminController {
 	/**
 	 * Aplica los cambios realizados a un cuadro existente.
 	 * <p>
-	 * <b>Nota:</b> Este método solo actualiza los metadatos (texto). La imagen no
+	 * <b>Nota:</b> Este método solo actualiza los datos de texto. La imagen no
 	 * se modifica en esta operación.
 	 * 
-	 * @param cuadro Objeto con los nuevos datos (binding automático del
-	 *               formulario).
+	 * @param cuadro Objeto con los nuevos datos
 	 * @param model  Modelo de datos.
 	 * @return Redirección a la galería.
 	 */

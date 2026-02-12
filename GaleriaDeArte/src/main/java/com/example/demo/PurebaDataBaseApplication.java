@@ -5,14 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
- * Clase principal de entrada para la aplicación Spring Boot "GaleriaArteBBDD".
+ * Clase principal de entrada para la aplicación Spring Boot "Galeria de Arte".
  * <p>
- * Esta clase es responsable de arrancar el contexto de Spring, la configuración automática
- * y el servidor web embebido (Tomcat).
+ * Esta clase es responsable de arrancar el contexto de Spring, la configuración automática.
  * <p>
  * Además de la configuración estándar de {@link SpringBootApplication}, se habilita explícitamente
  * la ejecución asíncrona mediante {@link EnableAsync}. Esto permite que métodos anotados con {@code @Async}
- * (como el envío masivo de correos) se ejecuten en hilos separados para no bloquear la interfaz de usuario.
+ * (como el envío de correos) se ejecuten en hilos separados para no bloquear la interfaz de usuario.
 
  *
  * @author Jonathan Ibáñez Piñero
@@ -23,7 +22,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 public class PurebaDataBaseApplication {
 
     /**
-     * Método principal (Main) que inicia la ejecución de la aplicación.
+     * Método principal que inicia la ejecución de la aplicación.
      * <p>
      * Delega el control a {@link SpringApplication#run} para inicializar el contenedor de Spring.
      *

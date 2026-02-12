@@ -14,7 +14,7 @@ body {
 	position: relative;
 }
 
-/* --- TARJETA CENTRAL UNIFICADA --- */
+
 .tarjeta-acceso {
 	background-color: white;
 	padding: 50px 60px; 
@@ -35,7 +35,7 @@ body {
 	font-weight: 600;
 }
 
-/* --- FORMULARIO Y INPUTS --- */
+/* FORMULARIO */
 .formulario-login {
 	width: 100%;
 	display: flex;
@@ -69,7 +69,7 @@ body {
 	box-shadow: 0 0 5px rgba(154, 176, 199, 0.3);
 }
 
-/* --- BOTÓN DE LOGIN --- */
+
 .boton-login {
 	width: 100%;
 	padding: 12px;
@@ -87,7 +87,6 @@ body {
 	background-color: rgb(86, 121, 156); 
 }
 /* BOTÓN DE GOOGLE */
-/* --- Estilos para el Botón de Google --- */
 
 .oauth-container {
     margin-top: 20px;
@@ -98,7 +97,6 @@ body {
     align-items: center;
 }
 
-/* Separador elegante con línea (Opcional) */
 .separator {
     display: flex;
     align-items: center;
@@ -106,7 +104,7 @@ body {
     color: #666;
     margin-bottom: 15px;
     width: 100%;
-    max-width: 300px; /* Ajusta al ancho de tu formulario */
+    max-width: 300px;
 }
 .separator::before, .separator::after {
     content: '';
@@ -116,53 +114,53 @@ body {
 .separator::before { margin-right: 10px; }
 .separator::after { margin-left: 10px; }
 
-/* Quitamos el subrayado y color azul típico de los enlaces */
+
 .google-link-reset {
     text-decoration: none;
     color: inherit;
     display: block;
     width: 100%;
-    max-width: 300px; /* Que mida lo mismo que tus inputs */
+    max-width: 300px; 
 }
 
-/* El DIV que hace de botón */
+
 .google-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #ffffff;
     border: 1px solid #dadce0;
-    border-radius: 4px; /* Bordes redondeados sutiles */
+    border-radius: 4px; 
     padding: 10px 15px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     transition: all 0.3s ease;
     cursor: pointer;
-    font-family: 'Roboto', sans-serif; /* Fuente limpia */
+    font-family: 'Roboto', sans-serif; 
 }
 
-/* Efecto al pasar el ratón (Hover) */
+
 .google-btn:hover {
     background-color: #f8f9fa;
     box-shadow: 0 4px 6px rgba(0,0,0,0.15);
     border-color: #c1c1c1;
-    transform: translateY(-1px); /* Pequeño efecto de elevación */
+    transform: translateY(-1px); 
 }
 
-/* El logo de la G */
+
 .google-icon {
     width: 20px;
     height: 20px;
     margin-right: 12px;
 }
 
-/* El texto del botón */
+
 .google-text {
     color: #3c4043;
     font-size: 15px;
     font-weight: 500;
 }
 
-/* --- MENSAJES DE ERROR --- */
+/* MENSAJES DE ERROR */
 .mensaje-alerta {
 	color: rgb(226, 65, 65); 
 	background-color: #ffe6e6;
@@ -174,7 +172,7 @@ body {
 	border: 1px solid #ffcccc;
 }
 
-/* --- SECCIÓN REGISTRO (PARTE INFERIOR) --- */
+/*SECCIÓN REGISTRO */
 .separador {
 	width: 100%;
 	height: 1px;
@@ -200,7 +198,7 @@ body {
 }
 
 
-/* --- BLOQUE DE IDIOMAS --- */
+/* BLOQUE DE IDIOMAS */
 .contenedor-idioma {
     position: absolute;
     top: 20px;
@@ -266,38 +264,25 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- VERSIÓN MÓVIL (Responsivo) --- */
+/* MÓVIL*/
 @media (max-width: 768px) {
     body {
-        /* 1. Cambiamos a columna para que los elementos se apilen */
         flex-direction: column;
-        
-        /* 2. Alineamos al inicio (arriba) en lugar del centro vertical */
         justify-content: flex-start;
-        
-        /* 3. Añadimos padding para que no se pegue al borde superior */
         padding-top: 20px; 
-        
-        /* 4. Quitamos la altura forzada para permitir scroll si hace falta */
         height: auto;
         min-height: 100vh;
     }
 
     .contenedor-idioma {
-        /* 5. IMPORTANTE: Quitamos position: absolute para que entre en el flujo normal */
         position: static;
-        
-        /* 6. Lo alineamos a la derecha (como en escritorio) pero usando Flexbox */
         align-self: flex-end;
-        
-        /* 7. Le damos un margen pequeño respecto a la tarjeta de abajo */
         margin-bottom: 15px;
-        margin-right: 20px; /* Un poco de margen derecho para que no toque el borde */
+        margin-right: 20px; 
     }
 
     .tarjeta-acceso {
-        /* Ajuste para que la tarjeta no toque los bordes laterales en móviles muy estrechos */
         width: 90%;
-        margin-bottom: 30px; /* Espacio abajo por si hay scroll */
+        margin-bottom: 30px;
     }
 }

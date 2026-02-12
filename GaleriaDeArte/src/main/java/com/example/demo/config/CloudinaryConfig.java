@@ -15,18 +15,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Value;
 /**
- * Clase de configuración para la integración con el servicio Cloudinary.
+ * Clase de configuración para la integración del servicio Cloudinary.
  * <p>
  * Esta clase inicializa el cliente de Cloudinary utilizando las credenciales (API Key, Secret, Cloud Name)
  * definidas en el archivo de propiedades {@code application.properties}.
- * Permite que la aplicación web suba y gestione imágenes en la nube de forma transparente.
+ * Permite que la aplicación web suba y gestione imágenes en Cloudinary.
  * @author Jonathan Ibáñez Piñero
  * @see com.example.demo.servicios.CloudinaryService
  */
 @Configuration
 public class CloudinaryConfig {
 
-    /** Nombre de la nube añadido como variable de entorno */
+    /** Nombre de cloudinary añadido como variable de entorno */
     @Value("${cloudinary.cloud_name}")
     private String cloudName;
 

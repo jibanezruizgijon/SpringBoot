@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Entidad JPA que representa un voto o valoración realizada por un usuario sobre una obra de arte.
+ * Entidad JPA que representa un voto realizado por un usuario sobre una obra de arte.
  * <p>
  * Esta clase mapea la tabla "votos" en la base de datos.
  * 
@@ -37,15 +37,15 @@ public class Voto {
     /**
      * Identificador único del registro de voto (Clave Primaria).
      * <p>
-     * Se genera automáticamente mediante la estrategia de auto-incremento de la base de datos.
+     * Se genera automáticamente mediante la estrategia de auto-increment de la base de datos.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     /**
-     * Valor numérico de la puntuación otorgada al cuadro.
-     * Generalmente representa una escala (ej. de 1 a 5 estrellas).
+     * Valor de la puntuación del cuadro.
+     * Representado únicamente en una escala  de 1 a 5.
      */
     @Column(nullable = false)
     private int puntuacion;
@@ -60,7 +60,7 @@ public class Voto {
     private LocalDateTime fechaVoto = LocalDateTime.now();
 
     /**
-     * El usuario que emite el voto.
+     * El usuario que realiza el voto.
      * <p>
      * Relación Muchos-a-Uno: Un usuario puede realizar múltiples votos (a distintos cuadros).
      * Se almacena como clave foránea {@code usuario_id}.

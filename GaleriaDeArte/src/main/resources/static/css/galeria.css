@@ -142,8 +142,8 @@ a:hover {
 }
 
 .mensaje-ya-votado {
-    background-color: #e8f5e9; /* Fondo verde suave */
-    color: #2e7d32;            /* Texto verde oscuro */
+    background-color: #e8f5e9; 
+    color: #2e7d32;          
     border: 1px solid #c8e6c9;
     padding: 15px;
     border-radius: 5px;
@@ -155,7 +155,7 @@ a:hover {
 
 .alerta-error {
     background-color: #ffdddd;
-    color: #d8000c; /* Rojo más legible */
+    color: #d8000c; 
     border: 1px solid #ffbaba;
     padding: 10px;
     margin-bottom: 15px;
@@ -164,19 +164,19 @@ a:hover {
 }
 
 .alerta-exito {
-    color: #2e7d32; /* Verde oscuro */
+    color: #2e7d32;
     font-weight: bold;
     margin-bottom: 15px;
     padding: 10px;
     border: 1px solid #c8e6c9;
-    background-color: #e8f5e9; /* Verde suave */
+    background-color: #e8f5e9; 
     border-radius: 5px;
-    display: flex; /* Para centrar si pones iconos */
+    display: flex; 
     justify-content: center;
     align-items: center;
 }
 
-/* Ajuste para los datos de la obra (Autor, Epoca) */
+
 .dato-obra {
     margin: 5px 0 10px;
     color: #7f8c8d;
@@ -184,7 +184,7 @@ a:hover {
 }
 
 .dato-obra strong {
-    color: #2c3e50; /* Un poco más oscuro para el título */
+    color: #2c3e50; 
 }
 
 

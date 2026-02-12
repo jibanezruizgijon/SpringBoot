@@ -57,7 +57,7 @@ public class InicioController {
     private PasswordEncoder passwordEncoder;
 
     /**
-     * Muestra la página de portada (Landing Page).
+     * Muestra la página de portada.
      * <p>Ruta: {@code /} o {@code /inicio}
      * @return El nombre de la vista {@code inicio.html}.
      */
@@ -92,7 +92,7 @@ public class InicioController {
                 email = principal.getName();
             }
             
-            // Recuperamos el nombre real del usuario desde la BBDD para mostrarlo en la bienvenida
+            // Recupera el nombre real del usuario desde la BBDD para mostrarlo en la bienvenida
             if (email != null) {
                 Usuario usuario = usuarioRepository.findByEmail(email);
                 if (usuario != null) {
@@ -152,7 +152,7 @@ public class InicioController {
      * <p>
      * Este método se ejecuta automáticamente tras la inyección de dependencias ({@code @PostConstruct}).
      * <ul>
-     * <li>Crea un usuario administrador por defecto (admin@admin.com / admin123).</li>
+     * <li>Crea un usuario administrador por defecto.</li>
      * <li>Crea una colección inicial de cuadros si la tabla está vacía.</li>
      * </ul>
      */

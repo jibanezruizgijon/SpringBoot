@@ -38,9 +38,9 @@ public class UserDetailsServiceImp implements UserDetailsService {
             throw new UsernameNotFoundException("Usuario no encontrado con email: " + email);
         }
 
-        // Construimos el usuario de Spring Security.
+        // Construye el usuario de Spring Security.
         // Nota: Spring espera que los roles no tengan el prefijo "ROLE_" dentro del método .roles(),
-        // por eso lo reemplazamos si viene guardado así en la BBDD.
+        // por eso se remplaza si viene guardado así en la BBDD.
         return User.builder()
                 .username(usuario.getEmail())
                 .password(usuario.getPassword()) 
