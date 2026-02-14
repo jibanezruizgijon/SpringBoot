@@ -75,7 +75,7 @@ public class AdminController {
 	 * <ol>
 	 * <li>Sube la imagen recibida a Cloudinary y obtiene su URL pública.</li>
 	 * <li>Crea el objeto {@code Cuadro} con los datos y la URL.</li>
-	 * <li>Guarda el cuadro en la base de datos.</li>
+	 * <li>Guarda la ruta del cuadro en la base de datos.</li>
 	 * <li>Redirige a la pantalla de redacción de correo para notificar.</li>
 	 * </ol>
 	 *
@@ -141,9 +141,12 @@ public class AdminController {
 	 * @return Redirección a la galería.
 	 */
 	@PostMapping("/enviarAviso")
-	public String enviarAviso(@RequestParam Long idCuadro, @RequestParam String asunto, @RequestParam String cuerpo) {
+	public String enviarAviso(
+			@RequestParam Long idCuadro,
+			@RequestParam String asunto, 
+			@RequestParam String cuerpo) {
 
-		// Obtengo la lista de todos los usuarios con rol: USER
+		// Obtengo la lista de todos los usuarios con rol USER
 		List<Usuario> usuarios = usuarioRepository.findByRol("ROLE_USER");
 
 		emailService.enviarNotificacionAsync(usuarios, asunto, cuerpo);

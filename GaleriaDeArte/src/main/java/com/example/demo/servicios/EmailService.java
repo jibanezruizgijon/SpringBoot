@@ -53,7 +53,7 @@ public class EmailService {
     public void enviarNotificacionAsync(List<Usuario> usuarios, String asunto, String cuerpo) {
         
         // Mensaje inicial para saber que ha empezado a enviar correos
-        logger.info("Inicio del envío masivo en segundo plano a {} usuarios.", usuarios.size());
+        logger.info("Inicio del envío en segundo plano a {} usuarios.", usuarios.size());
         
         int contador = 0;
 
@@ -61,7 +61,7 @@ public class EmailService {
             // Comprueba que tenga email
             if (u.getEmail() != null && !u.getEmail().isEmpty()) {
                 
-                // Eqnvía el correo
+                // Envía el correo
                 this.enviarCorreoMasivo(u.getEmail(), asunto, cuerpo);
                 
                 contador++;

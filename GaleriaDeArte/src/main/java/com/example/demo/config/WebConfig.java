@@ -31,12 +31,10 @@ import lombok.NoArgsConstructor;
  * @see WebMvcConfigurer
  */
 @Configuration
-@Data
-@NoArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
     /**
-     * Define el mecanismo de resolución de la configuración regional (Locale).
+     * Define el mecanismo de la configuración regional (Locale).
      * <p>
      * Se configura un {@link SessionLocaleResolver} para almacenar la elección del idioma
      * en la sesión HTTP del usuario.
