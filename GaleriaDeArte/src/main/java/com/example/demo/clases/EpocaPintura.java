@@ -18,7 +18,7 @@ public enum EpocaPintura {
     Expresionismo,
     Surrealismo,
     Romanticismo,
-    Arte oriental,
+    Arte_oriental,
     Rococo,
     Fauvismo
 }
