@@ -78,12 +78,12 @@ public class SecurityConfig {
             .requestMatchers("/", "/inicio", "/registro", "/css/**", "/js/**" , "/imagenesLogos/**", "/filtrar", "/procesarBusqueda").permitAll()
 
             //Ruta para swagger
-            // La documentación de la API es accesible tanto para usuarios registrados como administradores.
-            .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").hasAnyRole("ADMIN", "USER")
+            // La documentación de la API es accesible para usuarios autenticados
+            .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").authenticated()
 
             // API Rest
             // Los métodos de lectura (GET) son públicos para usuarios autenticados.
-            .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/**").hasAnyRole("ADMIN", "USER")
+            .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/**").authenticated()
             
             // Los métodos de escritura (POST, PUT, DELETE) son exclusivos del ADMIN.
             .requestMatchers("/api/**").hasRole("ADMIN")
