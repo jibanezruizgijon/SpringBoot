@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.clases.Cuadro;
 import com.example.demo.repository.CuadroRepository;
+import io.swagger.v3.oas.annotations.Operation; 
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * Controlador REST que expone la API para la gestión de Cuadros.
@@ -19,6 +21,7 @@ import com.example.demo.repository.CuadroRepository;
  */
 @RestController
 @RequestMapping("/api/cuadros")
+@Tag(name = "API de Cuadros", description = "Endpoints para gestionar la galería de arte")
 public class CuadroRestController {
 
 	/** Repositorio para acceder a la base de datos de cuadros. */
@@ -31,6 +34,7 @@ public class CuadroRestController {
      *
      * @return Una lista ({@link List}) de objetos {@link Cuadro} en formato JSON.
      */
+    @Operation(summary = "Obtener todos los cuadros", description = "Devuelve una lista completa de las obras disponibles en la galería.")
     @GetMapping
     public List<Cuadro> obtenerTodos() {
         return cuadroRepository.findAll();
@@ -47,6 +51,7 @@ public class CuadroRestController {
      * <li><b>404 Not Found</b> si no existe ningún cuadro con ese ID.</li>
      * </ul>
      */
+    @Operation(summary = "Obtener un cuadro por ID", description = "Busca un cuadro específico. Si no existe, devuelve 404.")
     @GetMapping("/{id}")
     public ResponseEntity<Cuadro> obtenerPorId(@PathVariable Long id) {
         return cuadroRepository.findById(id)
@@ -64,6 +69,7 @@ public class CuadroRestController {
      * @param autor El nombre (o fragmento del nombre) del autor a buscar.
      * @return Una lista de cuadros que coinciden con el criterio de búsqueda.
      */
+    @Operation(summary = "Buscar cuadros por autor", description = "Filtra la lista por nombre del autor. La búsqueda es parcial y no distingue mayúsculas.")
     @GetMapping("/buscar")
     public List<Cuadro> buscarPorAutor(@RequestParam String autor) {
         return cuadroRepository.findByAutorContainingIgnoreCase(autor);
@@ -78,6 +84,7 @@ public class CuadroRestController {
      * @param nuevoCuadro El objeto {@link Cuadro} deserializado desde el cuerpo (body) de la petición JSON.
      * @return El objeto {@code Cuadro} persistido, incluyendo su ID generado.
      */
+    @Operation(summary = "Crear un nuevo cuadro", description = "Guarda un cuadro en la BBDD. Requiere pasar la URL de la imagen en el JSON.")
     @PostMapping
     public Cuadro crearCuadro(@RequestBody Cuadro nuevoCuadro) {
         return cuadroRepository.save(nuevoCuadro);
@@ -95,6 +102,7 @@ public class CuadroRestController {
      * <li><b>404 Not Found</b> si el ID proporcionado no existe.</li>
      * </ul>
      */
+    @Operation(summary = "Modificar un cuadro", description = "Actualiza los datos de un cuadro existente dado su ID.")
     @PutMapping("/{id}")
     public ResponseEntity<Cuadro> actualizarCuadro(@PathVariable Long id, @RequestBody Cuadro cuadroDatos) {
         return cuadroRepository.findById(id)
@@ -119,6 +127,7 @@ public class CuadroRestController {
      * <li><b>404 Not Found</b> si el cuadro no existía previamente.</li>
      * </ul>
      */
+    @Operation(summary = "Eliminar un cuadro", description = "Borra permanentemente una obra de la base de datos.")
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> borrarCuadro(@PathVariable Long id) {
         return cuadroRepository.findById(id)
